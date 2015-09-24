@@ -2,7 +2,7 @@ var db = require('../db-config');
 
 var Jam = db.Model.extend({
   tableName: 'jams',
-  musicians: function() {
+  user: function() {
     return this.hasMany(User);
   }
 });
