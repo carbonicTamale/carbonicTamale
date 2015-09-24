@@ -1,6 +1,5 @@
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
-var db = require('./db-config');
 
 var GITHUB_CLIENT_ID = "c9f79f6f0da28cfe0d5e";
 var GITHUB_CLIENT_SECRET = "f9c1f12d3029fc8f23f5e851a83ec660b5318066";
@@ -33,12 +32,9 @@ module.exports = function(app) {
   passport.serializeUser(function(user, done) {
     done(null, user);
   });
+
   app.get('/auth/github',
-    passport.authenticate('github'),
-    function(req, res){
-      // The request will be redirected to GitHub for authentication, so this
-      // function will not be called.
-    });
+    passport.authenticate('github'));
 
   // GET /auth/github/callback
   //   Use passport.authenticate() as route middleware to authenticate the
@@ -49,10 +45,9 @@ module.exports = function(app) {
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
       console.log(req);
-      var username = req.user.username;
+      // var username = req.user.username;
       // SEQUELIZE STUFF
       res.redirect('/');
     }
   );
-
-}
+};
