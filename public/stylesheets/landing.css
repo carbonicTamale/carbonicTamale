@@ -2,19 +2,31 @@
 =            NAVBAR            =
 ==============================*/
 .top-bar {
-  height: 70px;
-  position: fixed;
-  background-color: #01A9ED !important; }
+  height: 64px;
+  position: fixed; }
+
+.not-scrolled-bar {
+  background-color: #01A9ED !important;
+  transition: background 0.2s linear; }
+
+.scrolled-bar {
+  background-color: #eee !important;
+  transition: background 0.2s linear; }
 
 .logo-icon-container {
-  padding: 5px 5px 0 5px; }
+  padding: 9px 5px 0 5px; }
 
 .brand {
   font: 36px 'Patua One';
   line-height: 50px;
-  margin-top: 3px; }
+  margin-top: 6px; }
+
+.scrolled-item {
+  color: #01A9ED;
+  transition: color 0.2s linear; }
 
 .login-button {
+  margin-top: -5px;
   height: 50px; }
   .login-button .login-icon-container {
     padding-top: 2px; }
@@ -34,7 +46,7 @@
     background-color: #01A9ED; }
 
 .intro-text {
-  font: 36px 'Patua One' white;
+  font: 48px 'Patua One' white;
   color: #FFF; }
 
 .trial-button {
@@ -52,7 +64,11 @@
   opacity: 0.6; }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     -webkit-transform: translateY(0);
     -moz-transform: translateY(0);
     -ms-transform: translateY(0);
