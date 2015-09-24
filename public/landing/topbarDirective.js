@@ -19,7 +19,7 @@
     			<div class="brand {{itemClass}}">instajam</div>\
   			</div>\
   			<div flex layout="row" layout-align="end center">\
-    			<md-button class="login-button">\
+    			<md-button class="login-button" href="auth/github">\
 	      		<div layout="row" layout-align="center center">\
 	        		<div class="login-icon-container">\
 	          		<ng-md-icon icon="github-circle" class=\'ng-icon\' style="{{style}}" size="45"></ng-md-icon>\
@@ -37,8 +37,6 @@
 
 
     function link(scope, elem, attrs) {
-      console.log(scope);
-      console.log(elem);
       scope.barClass = '';
       scope.itemClass = '';
       scope.style = '';
@@ -48,7 +46,6 @@
       }, true);
 
       function styleElements() {
-        console.log('styling elements', scope.options.scrolled);
         if (scope.options.scrolled) {
           scope.barClass = 'scrolled-bar md-whiteframe-z2';
           scope.style = 'fill: #01A9ED';
