@@ -1,5 +1,6 @@
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
+var db = require('./db-config');
 
 var GITHUB_CLIENT_ID = "c9f79f6f0da28cfe0d5e";
 var GITHUB_CLIENT_SECRET = "f9c1f12d3029fc8f23f5e851a83ec660b5318066";
