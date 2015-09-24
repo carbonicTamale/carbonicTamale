@@ -46,6 +46,7 @@ module.exports = function(app) {
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
       console.log(req);
+<<<<<<< HEAD
 <<<<<<< ce194b2878ae87d200870dc78ff269103c991c16
       var username = req.user.username;
       db.addUser(username)
@@ -57,10 +58,15 @@ module.exports = function(app) {
   );
 
 =======
+=======
+>>>>>>> 0326881d34ac1e9b1065c05786327d33c0134b38
       // var username = req.user.username;
       // SEQUELIZE STUFF
       res.redirect('/');
     }
   );
+<<<<<<< HEAD
 >>>>>>> User api started
+=======
+>>>>>>> 0326881d34ac1e9b1065c05786327d33c0134b38
 };
