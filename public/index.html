@@ -11,14 +11,15 @@
   // TODO: feed in to io function the url of our socket server
   var socket = io();
 
+  // replace loner with name of the room id
+  var roomName = 'loner';
+
   // replace trigger with actual trigger of midi element
   $midi.played(function(){
-    // replace loner with variable name of the room id
-    socket.emit('note played', data, 'loner');
+    socket.emit('note played', data, roomName);
   })
 
-  // replace loner with variable name of the room id
-  socket.on('loner' + ' played', function(data){
+  socket.on(roomName + ' played', function(data){
     // data will be a note played object
   });
 </script>
