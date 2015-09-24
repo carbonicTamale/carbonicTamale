@@ -60,6 +60,8 @@ module.exports = function(app) {
           }).then(function(newUser) {
             res.redirect('/');
           });
+        } else {
+          res.direct('/');
         }
       });
   });
