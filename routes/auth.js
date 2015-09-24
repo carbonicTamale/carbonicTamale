@@ -47,6 +47,9 @@ module.exports = function(app) {
   app.get('/auth/github/callback', 
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
+      console.log(req);
+      var username = req.user.username;
+      // SEQUELIZE STUFF
       res.redirect('/');
     }
   );
