@@ -1,4 +1,6 @@
 var path = require('path');
+
+//connect to database
 var knex = require('knex')({
   client: 'sqlite3',
   connection: {
@@ -11,10 +13,10 @@ var knex = require('knex')({
   }
 });
 
+//initialize ORM with knex 
 var db = require('bookshelf')(knex);
 
-
-
+//define users table schema
 db.knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('users', function (user) {
@@ -28,6 +30,7 @@ db.knex.schema.hasTable('users').then(function(exists) {
   }
 });
 
+//define jams table schema
 db.knex.schema.hasTable('jams').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('jams', function (jam) {
