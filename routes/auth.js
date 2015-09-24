@@ -1,5 +1,7 @@
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
+var Users = require('../Collections/Users');
+var User = require('../Models/User');
 
 var GITHUB_CLIENT_ID = "c9f79f6f0da28cfe0d5e";
 var GITHUB_CLIENT_SECRET = "f9c1f12d3029fc8f23f5e851a83ec660b5318066";
@@ -45,27 +47,18 @@ module.exports = function(app) {
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
       console.log(req);
-<<<<<<< HEAD
-<<<<<<< ce194b2878ae87d200870dc78ff269103c991c16
       var username = req.user.username;
-      db.addUser(username)
-      .then(function(user) {
-        console.log(user);
+      var email = req.user.email;
+      User.fetch({ username: username })
+      .then(function (found) {
+        if(!found) {
+          Users.create({
+            username: username,
+            email: email
+          });
+        }
         res.redirect('/');
       });
-    }
-  );
-
-=======
-=======
->>>>>>> 0326881d34ac1e9b1065c05786327d33c0134b38
-      // var username = req.user.username;
-      // SEQUELIZE STUFF
-      res.redirect('/');
-    }
-  );
-<<<<<<< HEAD
->>>>>>> User api started
-=======
->>>>>>> 0326881d34ac1e9b1065c05786327d33c0134b38
+  });
 };
+
