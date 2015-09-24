@@ -1,7 +1,5 @@
-var Bookshelf = require('bookshelf');
 var path = require('path');
-
-var db = Bookshelf.initialize({
+var knex = require('knex')({
   client: 'sqlite3',
   connection: {
     host: '127.0.0.1',
@@ -9,9 +7,13 @@ var db = Bookshelf.initialize({
     password: 'password',
     database: 'instajam',
     charset: 'utf8',
-    filename: path.join(__dirname, '../db/shortly.sqlite')
+    filename: path.join(__dirname, 'db/instajam.sqlite')
   }
 });
+
+var db = require('bookshelf')(knex);
+
+
 
 db.knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
@@ -29,10 +31,10 @@ db.knex.schema.hasTable('users').then(function(exists) {
 db.knex.schema.hasTable('jams').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('jams', function (jam) {
-      click.increments('id').primary();
-      click.integer('user_id');
-      click.integer('jam_id');
-      click.timestamps();
+      jam.increments('id').primary();
+      jam.integer('user_id');
+      jam.integer('jam_id');
+      jam.timestamps();
     }).then(function (table) {
       console.log('Created Table', table);
     });
