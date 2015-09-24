@@ -25,7 +25,7 @@ db.knex.schema.hasTable('users').then(function(exists) {
       user.string('email', 255);
       user.timestamps();
     }).then(function (table) {
-      console.log('Created Table', table);
+      console.log('Created Users Table', table);
     });
   }
 });
@@ -35,11 +35,23 @@ db.knex.schema.hasTable('jams').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('jams', function (jam) {
       jam.increments('id').primary();
-      jam.integer('user_id');
+      jam.integer('user_id').references('user.id');
       jam.integer('jam_id');
       jam.timestamps();
     }).then(function (table) {
-      console.log('Created Table', table);
+      console.log('Created Jams Table', table);
+    });
+  }
+});
+
+db.knex.schema.hasTable('friends').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('friends', function (friend) {
+      friend.increments('id').primary();
+      friend.integer('userOne_id').references('user.id');
+      friend.integer('userTwo_id').references('user.id');
+    }).then(function (table) {
+      console.log('Created Friends Table', table);
     });
   }
 });
