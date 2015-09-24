@@ -30,24 +30,9 @@ db.knex.schema.hasTable('users').then(function(exists) {
   }
 });
 
-//define jams table schema
-db.knex.schema.hasTable('jams').then(function(exists) {
-  if (!exists) {
-    db.knex.schema.createTable('jams', function (jam) {
-      jam.increments('id').primary();
-      jam.integer('user_id').references('user.id');
-      jam.integer('jam_id');
-      jam.timestamps();
-    }).then(function (table) {
-      console.log('Created Jams Table', table);
-    });
-  }
-});
-
 db.knex.schema.hasTable('friends').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('friends', function (friend) {
-      friend.increments('id').primary();
       friend.integer('userOne_id').references('user.id');
       friend.integer('userTwo_id').references('user.id');
     }).then(function (table) {
