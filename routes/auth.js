@@ -1,6 +1,6 @@
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
-var db = require('../db-config');
+var db = require('../controllers/controllers');
 
 var GITHUB_CLIENT_ID = "c9f79f6f0da28cfe0d5e";
 var GITHUB_CLIENT_SECRET = "f9c1f12d3029fc8f23f5e851a83ec660b5318066";
@@ -50,9 +50,12 @@ module.exports = function(app) {
     function(req, res) {
       console.log(req);
       var username = req.user.username;
-      // SEQUELIZE STUFF
-      res.redirect('/');
+      db.addUser(username)
+      .then(function(user) {
+        console.log(user);
+        res.redirect('/');
+      });
     }
   );
 
-}
+};

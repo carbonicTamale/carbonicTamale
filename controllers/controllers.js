@@ -1,19 +1,17 @@
-var db = require('./db-config');
+var db = require('../db-config');
 
-module.exports = {
-  users: {
-    post: function(req, res) {
-      db.User.findOrCreate({ where:{ username: req.body.username }})
-      .then(function(user) {
-        console.log(user);
-      });
-    },
-    get: function(req, res) {
-      db.User.findOne({where:{username: req.body.username }})
-      .then(function(user) {
-        console.log(user);
-      });
-    }
-  }
+
+exports.addFriend = function (username, friend) {
+  return db.User.findOne({where: { username: username }})
+  .then(function(user) {
+    //create relationship between users
+    return user;
+  });
 };
 
+exports.addUser = function (username) {
+  return db.User.findOrCreate({where: {username: username}})
+  .then(function(user) {
+    return user;
+  });
+};
