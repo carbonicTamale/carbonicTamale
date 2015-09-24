@@ -1,22 +1,43 @@
-var Sequelize = require('sequelize');
+var Bookshelf = require('bookshelf');
+var path = require('path');
 
-var sequelize = new Sequelize('database', 'root', '', {
-  host: 'localhost',
-  dialect: 'sqlite',
-  storage: './db/database.sqlite'
+var db = Bookshelf.initialize({
+  client: 'sqlite3',
+  connection: {
+    host: '127.0.0.1',
+    user: 'your_database_user',
+    password: 'password',
+    database: 'instajam',
+    charset: 'utf8',
+    filename: path.join(__dirname, '../db/shortly.sqlite')
+  }
 });
 
-//define user models
-var User = sequelize.define('User', {
-  name: Sequelize.STRING
-}, {
-    tableName: 'users'
+db.knex.schema.hasTable('users').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('users', function (user) {
+      user.increments('id').primary();
+      user.string('name', 255);
+      user.string('email', 255);
+      user.timestamps();
+    }).then(function (table) {
+      console.log('Created Table', table);
+    });
+  }
 });
 
-//set up user to user relation as friends
-User.hasMany(User, { as: 'Friend' });
+db.knex.schema.hasTable('jams').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('jams', function (jam) {
+      click.increments('id').primary();
+      click.integer('user_id');
+      click.integer('jam_id');
+      click.timestamps();
+    }).then(function (table) {
+      console.log('Created Table', table);
+    });
+  }
+});
 
-//create tables if there are none
-User.sync();
 
-exports.User = User;
+module.exports = db;
