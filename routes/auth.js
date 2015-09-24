@@ -31,7 +31,7 @@ module.exports = function(app) {
     done(null, user);
   });
 
-  passport.serializeUser(function(user, done) {
+  passport.deserializeUser(function(user, done) {
     done(null, user);
   });
 
@@ -43,7 +43,7 @@ module.exports = function(app) {
   //   request.  If authentication fails, the user will be redirected back to the
   //   login page.  Otherwise, the primary route function function will be called,
   //   which, in this example, will redirect the user to the home page.
-  app.get('/auth/github/callback', 
+  app.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
       console.log(req);

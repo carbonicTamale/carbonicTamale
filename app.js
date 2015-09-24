@@ -52,8 +52,11 @@ if (app.get('env') === 'development') {
       // message: err.message,
       // error: err
     // });
-    res.send('error');
-  });
+    // res.send('error');
+    res.send(JSON.stringify({
+              message: err.message,
+              error: err}));
+  })
 }
 
 // production error handler
