@@ -1,0 +1,82 @@
+/*==============================
+=            NAVBAR            =
+==============================*/
+.top-bar {
+  height: 70px;
+  position: fixed;
+  background-color: #01A9ED !important; }
+
+.logo-icon-container {
+  padding: 5px 5px 0 5px; }
+
+.brand {
+  font: 36px 'Patua One';
+  line-height: 50px;
+  margin-top: 3px; }
+
+.login-button {
+  height: 50px; }
+  .login-button .login-icon-container {
+    padding-top: 2px; }
+  .login-button span {
+    font: 26px 'Patua One';
+    margin-top: -12px;
+    margin-left: 5px; }
+
+/*=====================================
+=            INTRO CONTENT            =
+=====================================*/
+.intro-display {
+  height: 100vh;
+  width: 100%; }
+  .intro-display md-content {
+    height: 100%;
+    background-color: #01A9ED; }
+
+.intro-text {
+  font: 36px 'Patua One' white;
+  color: #FFF; }
+
+.trial-button {
+  background-color: #FF8F6D !important;
+  margin-top: 20px;
+  padding: 10px; }
+  .trial-button span {
+    font: 30px 'Patua One';
+    color: #FFF; }
+
+.down-arrow {
+  color: #FFF;
+  animation: bounce 2s infinite;
+  text-align: center;
+  opacity: 0.6; }
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  40% {
+    -webkit-transform: translateY(-30px);
+    -moz-transform: translateY(-30px);
+    -ms-transform: translateY(-30px);
+    -o-transform: translateY(-30px);
+    transform: translateY(-30px); }
+  60% {
+    -webkit-transform: translateY(-15px);
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    -o-transform: translateY(-15px);
+    transform: translateY(-15px); } }
+/*====================================
+=            MAIN CONTENT            =
+====================================*/
+.main-content {
+  height: 1000px; }
+
+.section-title {
+  font: 50px 'Patua One'; }
+
+/*# sourceMappingURL=landing.css.map */

@@ -1,8 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="landingApp">
+
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>instajam</title>
+  <link rel="stylesheet" href="lib/normalize-css/normalize.css">
+  <link rel="stylesheet" href="lib/angular-material/angular-material.css">
+  <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="stylesheets/landing.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Righteous|Patua+One|Comfortaa' rel='stylesheet' type='text/css'>
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/angular-animate/angular-animate.min.js"></script>
+  <script src="lib/angular-aria/angular-aria.min.js"></script>
+  <script src="lib/angular-material/angular-material.min.js"></script>
+  <script src="lib/angular-material-icons/angular-material-icons.min.js"></script>
+  <script src="app.js"></script>
+  <script src="landing/landingCtrl.js"></script>
 </head>
 <body>
 
@@ -23,5 +38,44 @@
     // data will be a note played object
   });
 </script>
+
+<body layout="column" ng-controller="landingCtrl as landing">
+  <md-toolbar layout="row" class="top-bar">
+    <div layout="row" class="logo-container" flex="20">
+      <div class="logo-icon-container">
+        <ng-md-icon icon="my_library_music" style="fill:white" size="50"></ng-md-icon>
+      </div>
+      <div class="brand">instajam</div>
+    </div>
+    <div flex layout="row" layout-align="end center">
+      <md-button class="login-button">
+        <div layout="row" layout-align="center center">
+          <div class="login-icon-container">
+            <ng-md-icon icon="github-circle" style="fill: white" size="45"></ng-md-icon>
+          </div>
+          <span>Login</span>
+        </div>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <div class="intro-display">
+    <md-content layout="column" layout-align="start center">
+      <div flex="40"></div>
+      <div flex="5" class="intro-text">instajam is the best place to jam with others online.</div>
+      <md-button class="md-raised trial-button">
+        <span>Try it out!</span>
+      </md-button>
+      <div flex="35"></div>
+      <div class="arrow-container">
+        <i class="fa fa-angle-double-down fa-3x down-arrow"></i>
+      </div>
+    </md-content>
+  </div>
+  <div layout="column" layout-align="center center" class="main-content">
+  	<md-content layout="column" layout-align="start center">
+			<div class="section-title">How it Works</div>
+  	</md-content>
+  </div>
 </body>
+
 </html>
