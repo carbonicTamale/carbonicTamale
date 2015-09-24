@@ -4,3 +4,5 @@ public/lib
 *.css.map
 
 /node_modules
+
+/db
