@@ -1,6 +1,6 @@
 var sequelize = require('sequelize');
 
-var db = new Sequelize('database', 'username', 'password', {
+var db = new Sequelize('database', 'root', '', {
   host: 'localhost',
   dialect: 'mysql'
 });
@@ -25,3 +25,6 @@ var Instrument = sequelie.define('Instrument', {
 //create tables if there are none
 User.sync();
 Instrument.sync();
+
+exports.User = User;
+exports.Instrument = Instrument;
