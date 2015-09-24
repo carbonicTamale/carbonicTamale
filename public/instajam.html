@@ -17,8 +17,15 @@
   <script src="lib/angular-material/angular-material.min.js"></script>
   <script src="lib/angular-material-icons/angular-material-icons.min.js"></script>
   <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="js/midi.js"></script>
   <script src="app.js"></script>
   <script src="dashboard/navbarCtrl.js"></script>
+  <script src="dashboard/dashboardCtrl.js"></script>
+  <script src="jam/jamFactory.js"></script>
+  <script src="friends/friendsCtrl.js"></script>
+  <script src="friends/friendsCtrl.js"></script>
+  <script src="jam/jamCtrl.js"></script>
+  <script src="route-config.js"></script>
 </head>
 
 <body ng-controller="NavbarCtrl as nav">
@@ -40,7 +47,7 @@
         </md-toolbar>
         <md-list>
           <md-item ng-repeat="item in nav.menu">
-            <a ui-sref="{{item.link}}" href="#" class="nav-link">
+            <a ui-sref="{{item.link}}" class="nav-link">
               <md-item-content layout="row" layout-align="start center" ng-class="{'active': nav.isSelected('{{item.title}}')}">
                 <div class="inset">
                   <ng-md-icon icon="{{item.icon}}" style="fill: #fff"></ng-md-icon>
@@ -51,6 +58,9 @@
           </md-item>
         </md-list>
       </md-sidenav>
+	    <md-content flex>
+	    	<div ui-view></div>
+	    </md-content>
     </md-content>
   </md-content>
 </body>

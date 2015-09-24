@@ -20,14 +20,9 @@
 				icon: 'group'
 			},
 			{
-				link: 'Jam',
+				link: 'jam',
 				title: 'Jam',
 				icon: 'create'
-			},
-			{
-				link: 'settings',
-				title: 'Settings',
-				icon: 'settings'
 			}
 		];
 
