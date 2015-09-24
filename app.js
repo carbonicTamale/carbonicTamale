@@ -19,7 +19,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({secret: 'secret'}));
+app.use(session({
+  secret: 'secret',
+  saveUninitialized: false,
+  resave: false
+}));
 
 var auth = require('./routes/auth')(app);
 
