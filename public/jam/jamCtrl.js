@@ -36,7 +36,7 @@
     $scope.$watch(function() {
     	return self.activeDevice;
     }, function() {
-    	// inputFactory.plug(self.activeDevice);
+    	jamFactory.plug(self.activeDevice);
     })
   }
 })();
