@@ -57,11 +57,8 @@ module.exports = function(app) {
             email: email
           });
         }
+        res.redirect('/');
       });
-
-      res.redirect('/');
-      });
-    }
-  );
+  });
 };
 
