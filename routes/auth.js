@@ -49,15 +49,18 @@ module.exports = function(app) {
       console.log(req);
       var username = req.user.username;
       var email = req.user.email;
-      User.fetch({ username: username })
+      var name = req.user.displayName;
+      new User({ username: username }).fetch()
       .then(function (found) {
         if(!found) {
           Users.create({
+            name: name,
             username: username,
             email: email
+          }).then(function(newUser) {
+            res.redirect('/');
           });
         }
-        res.redirect('/');
       });
   });
 };
