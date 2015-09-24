@@ -6,10 +6,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  if (/* User is not signed in */ true) {
+  if (! req.user) {
     res.sendfile(path.join(config.public, 'index.html'));
   }
-  else /* User is signed in */ {
+  else {
     res.sendfile(path.join(config.public, 'dashboard.html'));
   }
 });
