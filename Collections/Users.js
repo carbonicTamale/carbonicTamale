@@ -1,13 +1,10 @@
 var db = require('../db-config');
+var User = require('../Models/User');
 
-var User = db.Model.extend({
-  tableName: 'users',
-  friends: function() {
-    return this.hasMany(Users);
-  },
-  initialize: function() {
-    
-  }
-});
+var Users = new db.Collection();
+
+Users.model = User;
+
+module.exports = Users;
 
 
