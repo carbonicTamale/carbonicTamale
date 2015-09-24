@@ -1,0 +1,25 @@
+{
+  "name": "carbonicTamale",
+  "version": "0.0.0",
+  "homepage": "https://github.com/cyung/carbonicTamale",
+  "authors": [
+    "Chris Yung <cyung10892@gmail.com>)]"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material-icons": "~0.6.0",
+    "angular-material": "~0.11.0",
+    "angular-ui-router": "~0.2.15",
+    "font-awesome": "fontawesome#~4.4.0",
+    "normalize-css": "normalize.css#~3.0.3",
+    "svg-morpheus": "~0.1.8"
+  }
+}
