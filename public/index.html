@@ -21,26 +21,7 @@
   <script src="landing/landingCtrl.js"></script>
   <script src="landing/topbarDirective.js"></script>
 </head>
-<body>
 
-<!-- <script src="https://cdn.socket.io/socket.io-1.2.0.js" type="text/javascript"></script>
-<script>
-  // TODO: feed in to io function the url of our socket server
-  var socket = io();
-
-  // replace loner with name of the room id
-  var roomName = 'loner';
-
-  // replace trigger with actual trigger of midi element
-  $midi.played(function(){
-    socket.emit('note played', data, roomName);
-  })
-
-  socket.on(roomName + ' played', function(data){
-    // data will be a note played object
-  });
-</script>
- -->
 <body layout="column" ng-controller="landingCtrl as landing">
   <top-bar options="landing.options"></top-bar>
   <div class="intro-display">
@@ -58,9 +39,9 @@
     </md-content>
   </div>
   <div layout="column" layout-align="center center" class="main-content">
-  	<md-content layout="column" layout-fill layout-align="start center">
-			<div class="section-title">How it Works</div>
-  	</md-content>
+    <md-content layout="column" layout-fill layout-align="start center">
+      <div class="section-title">How it Works</div>
+    </md-content>
   </div>
 </body>
 
