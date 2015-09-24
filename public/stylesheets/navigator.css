@@ -1,0 +1,51 @@
+/*====================================
+=            TOP LOGO BAR            =
+====================================*/
+.logo-bar {
+  height: 64px;
+  background-color: #00796B !important; }
+
+.logo-icon-container {
+  padding: 9px 5px 0 5px; }
+
+.brand {
+  font: 36px 'Patua One';
+  line-height: 50px;
+  margin-top: 6px; }
+
+/*===============================
+=            SIDENAV            =
+===============================*/
+.sidenav {
+  background-color: #B2DFDB; }
+  .sidenav md-toolbar {
+    background-color: #B2DFDB; }
+
+.nav-user {
+  font-size: 23.9px;
+  text-shadow: 1px 1px 4px #969696;
+  color: #fff; }
+  .nav-user :last-child {
+    font-size: 16px;
+    opacity: 0.8; }
+
+.user-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 4px 4px 10px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 4px 4px 10px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 4px 4px 10px -5px rgba(0, 0, 0, 0.75); }
+
+.nav-link {
+  text-decoration: none; }
+
+.nav-item {
+  font: 26px 'Righteous';
+  color: #fff; }
+
+.active {
+  color: #eee; }
+
+/*# sourceMappingURL=navigator.css.map */
