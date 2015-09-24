@@ -1,13 +1,14 @@
-var sequelize = require('sequelize');
+var Sequelize = require('sequelize');
 
-var db = new sequelize('database', 'root', '', {
+var sequelize = new Sequelize('database', 'root', '', {
   host: 'localhost',
-  dialect: 'mysql'
+  dialect: 'sqlite',
+  storage: './db/database.sqlite'
 });
 
 //define user models
-var User = db.define('User', {
-  name: sequelize.STRING
+var User = sequelize.define('User', {
+  name: Sequelize.STRING
 }, {
     tableName: 'users'
 });
@@ -19,4 +20,3 @@ User.hasMany(User, { as: 'Friend' });
 User.sync();
 
 exports.User = User;
-exports.db = db;
