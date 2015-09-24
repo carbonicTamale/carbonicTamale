@@ -33,12 +33,9 @@ module.exports = function(app) {
   passport.serializeUser(function(user, done) {
     done(null, user);
   });
+
   app.get('/auth/github',
-    passport.authenticate('github'),
-    function(req, res){
-      // The request will be redirected to GitHub for authentication, so this
-      // function will not be called.
-    });
+    passport.authenticate('github'));
 
   // GET /auth/github/callback
   //   Use passport.authenticate() as route middleware to authenticate the
@@ -49,6 +46,7 @@ module.exports = function(app) {
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
       console.log(req);
+<<<<<<< ce194b2878ae87d200870dc78ff269103c991c16
       var username = req.user.username;
       db.addUser(username)
       .then(function(user) {
@@ -58,4 +56,11 @@ module.exports = function(app) {
     }
   );
 
+=======
+      // var username = req.user.username;
+      // SEQUELIZE STUFF
+      res.redirect('/');
+    }
+  );
+>>>>>>> User api started
 };

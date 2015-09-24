@@ -26,7 +26,7 @@ app.use(session({
   resave: false
 }));
 
-var auth = require('./routes/auth')(app);
+require('./routes/auth')(app);
 
 app.use('/', routes);
 // app.use('/api', api);
