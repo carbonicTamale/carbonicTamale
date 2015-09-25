@@ -48,7 +48,7 @@ module.exports = function(app) {
     function(req, res) {
       console.log(req);
       var username = req.user.username;
-      var email = req.user.email;
+      var email = req.user.emails[0].value;
       var name = req.user.displayName;
       new User({ username: username }).fetch()
       .then(function (found) {
