@@ -1,4 +1,4 @@
-var db = require('../db-config');
+var db = require('../config/db-config');
 
 var User = db.Model.extend({
   tableName: 'users',
