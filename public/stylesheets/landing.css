@@ -43,6 +43,7 @@
   width: 100%; }
   .intro-display md-content {
     height: 100%;
+    overflow-y: hidden;
     background-color: #01A9ED; }
 
 .intro-text {
@@ -52,8 +53,7 @@
 
 .trial-button {
   background-color: #FF8F6D !important;
-  margin-top: 30px;
-  padding: 10px; }
+  padding: 10px 15px 48px 15px; }
   .trial-button span {
     font: 30px 'Patua One';
     color: #FFF; }
