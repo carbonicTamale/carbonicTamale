@@ -14,7 +14,7 @@
 		socket.on(roomName + ' played', function(data) {
 			var key_num = data[0];
 			var key_vel = data[1];
-			val key_position = data[2];
+			var key_position = data[2];
 
 			if (key_position === 'down')
 				soundFactory.playSound(key_vel);
