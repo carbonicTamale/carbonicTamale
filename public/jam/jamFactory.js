@@ -4,7 +4,7 @@
 	angular.module('app')
 	.factory('jamFactory', jamFactory);
 
-	function jamFactory() {
+	function jamFactory(soundFactory) {
 		var self = this;
 		self.device = null;
 		var device_name = '';
@@ -12,8 +12,16 @@
 		var roomName = '2307';
 
 		socket.on(roomName + ' played', function(data) {
-			console.log('received data', data);
+			var key_num = data[0];
+			var key_vel = data[1];
+			val key_position = data[2];
+
+			if (key_position === 'down')
+				soundFactory.playSound(key_vel);
+			else
+				soundFactory.stopSound(key_vel);
 		});
+
 
 		var services = {
 			plug: plug
@@ -45,23 +53,23 @@
 			if (self.device.name === 'C.24') {
 				if (key_state === 144) {
 					if (key_vel !== 0) {
-						keyDown([key_state, key_num, key_vel]);
-						console.log(key_num, key_vel);
+						keyDown(key_state, key_num, key_vel);
 					}
 					else {
-						keyUp(e);
-						// key up
+						keyUp(key_num);
 					}
 				}
 			}
 		}
 
-		function keyDown(data) {
-			socket.emit('note played', data, roomName);
+		function keyDown(key_num, key_vel) {
+			socket.emit('note event', [key_num, key_vel, 'down'], roomName);
+			soundFactory.playSound(key_num, key_vel);
 		}
 
-		function keyUp() {
-
+		function keyUp(key_num) {
+			socket.emit('note event', [key_num, key_vel, 'up'], roomName);
+			soundFactory.stopSound(key_num);
 		}
 	}
 })();

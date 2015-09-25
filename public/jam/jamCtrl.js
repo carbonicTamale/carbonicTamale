@@ -7,6 +7,11 @@
   function jamCtrl($scope, Devices, jamFactory) {
     var self = this;
     self.devices = [];
+    self.volumeSlider = {
+      floor: 0,
+      ceil: 100,
+      value: 50
+    };
 
     Devices
       .connect()
@@ -22,8 +27,6 @@
 
           // set first device to active device
           self.activeDevice = self.devices[0];
-
-          console.log(self.devices);
         }
         else {
         	console.log('No devices detected!');
