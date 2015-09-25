@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/dashboard', function(req, res, next) {
-  res.sendfile(path.join(config.public, 'index.html'));
+  res.sendfile(path.join(config.public, 'instajam.html'));
 })
 
 router.get('/api', apiRouter);
