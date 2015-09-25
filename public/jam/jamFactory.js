@@ -14,7 +14,7 @@
 		var key_map = [];
 
 		socket.on(roomName + ' event', function(data) {
-			console.log('received data');
+			console.log('received data', data);
 			var key_num = data[0];
 			var key_vel = data[1];
 			var key_position = data[2];
