@@ -13,6 +13,14 @@
       value: 50
     };
 
+    self.key_map = jamFactory.getKeyMap();
+    var updateKeyMap = function() {
+      self.key_map = jamFactory.getKeyMap();
+      $scope.$apply();
+    }
+
+    jamFactory.registerObserverCallback(updateKeyMap);
+
     Devices
       .connect()
       .then(function(access) {
@@ -35,6 +43,8 @@
       .catch(function(e) {
       	console.log(e);
       })
+
+
 
     $scope.$watch(function() {
     	return self.activeDevice;

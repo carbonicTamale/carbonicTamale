@@ -2,15 +2,17 @@ var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 var Users = require('../Collections/Users');
 var User = require('../Models/User');
-var config = require('../config/config');
+
+var GITHUB_CLIENT_ID = "c9f79f6f0da28cfe0d5e";
+var GITHUB_CLIENT_SECRET = "f9c1f12d3029fc8f23f5e851a83ec660b5318066";
 
 module.exports = function(app) {
   app.use(passport.initialize());
   app.use(passport.session());
   passport.use(new GitHubStrategy({
-      clientID: config.GITHUB_CLIENT_ID,
-      clientSecret: config.GITHUB_CLIENT_SECRET,
-      callbackURL: config.GITHUB_CALLBACK
+      clientID: GITHUB_CLIENT_ID,
+      clientSecret: GITHUB_CLIENT_SECRET,
+      callbackURL: "http://127.0.0.1:3000/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
       // asynchronous verification, for effect...
@@ -63,4 +65,3 @@ module.exports = function(app) {
       });
   });
 };
-

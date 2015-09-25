@@ -10,21 +10,28 @@
 		var device_name = '';
 		var socket = io('http://104.236.152.154:80');
 		var roomName = '2307';
+		var observerCallbacks = [];
+		var key_map = [];
 
-		socket.on(roomName + ' played', function(data) {
+		socket.on(roomName + ' event', function(data) {
+			console.log('received data', data);
 			var key_num = data[0];
 			var key_vel = data[1];
 			var key_position = data[2];
 
 			if (key_position === 'down')
-				soundFactory.playSound(key_vel);
+				soundFactory.playSound(key_num, key_vel);
 			else
-				soundFactory.stopSound(key_vel);
+				soundFactory.stopSound(key_num, key_vel);
 		});
+
+		fillKeyMap();
 
 
 		var services = {
-			plug: plug
+			plug: plug,
+			getKeyMap: getKeyMap,
+			registerObserverCallback: registerObserverCallback
 		}
 
 		return services;
@@ -42,6 +49,16 @@
 				self.device = device;
 				self.device.onmidimessage = onmidimessage;
 			}
+		}
+
+		function fillKeyMap() {
+			for (var i=0; i<=97; i++) {
+				key_map.push(1);
+			}
+		}
+
+		function getKeyMap() {
+			return key_map;
 		}
 
 		function onmidimessage(e) {
@@ -65,11 +82,37 @@
 		function keyDown(key_num, key_vel) {
 			socket.emit('note event', [key_num, key_vel, 'down'], roomName);
 			soundFactory.playSound(key_num, key_vel);
+			if (key_num-23 >= 0) key_map[key_num-23] = key_vel/4+1;
+			if (key_num-22 >= 0) key_map[key_num-22] = key_vel/2+1;
+			if (key_num-20 <= 97) key_map[key_num-20] = key_vel/2+1;
+			if (key_num-19 <= 97) key_map[key_num-19] = key_vel/4+1;
+			key_map[key_num-21] = key_vel+1;
+			notifyObservers();
 		}
 
 		function keyUp(key_num, key_vel) {
 			socket.emit('note event', [key_num, key_vel, 'up'], roomName);
 			soundFactory.stopSound(key_num);
+			if (key_num-23 >= 0) key_map[key_num-23] = key_vel/4+1;
+			if (key_num-22 >= 0) key_map[key_num-22] = key_vel/2+1;
+			if (key_num-20 <= 97) key_map[key_num-20] = key_vel/2+1;
+			if (key_num-19 <= 97) key_map[key_num-19] = key_vel/4+1;
+			key_map[key_num-21] = key_vel+1;
+			notifyObservers();
+		}
+
+		function setSoundBar(key_num, key_vel) {
+
+		}
+
+		function registerObserverCallback(callback) {
+			observerCallbacks.push(callback);
+		}
+
+		function notifyObservers() {
+			for (var i = 0; i < observerCallbacks.length; i++) {
+				observerCallbacks[i]();
+			};
 		}
 	}
 })();
