@@ -15,6 +15,9 @@ module.exports = function(server, sessionMiddleware) {
 
   io.sockets.on('connection', function (socket) {
     var session = socket.request.session;
+    if (session.passport === undefined) {
+      return;
+    }
     var user = session.passport.user.username;
     openSockets[user] = socket.id;
     console.log('A user has connected');

@@ -12,12 +12,13 @@ router.get('/', function(req, res, next) {
     res.redirect('/dashboard');
   }
   else {
-    res.sendfile(path.join(config.public, 'index.html'));
+    res.sendFile(path.join(config.public, 'index.html'));
   }
 });
 
 router.get('/dashboard', verify, function(req, res, next) {
-  res.sendfile(path.join(config.public, 'instajam.html'));
+  console.log("VERIFIED, GOING TO DASHBOARD");
+  res.sendFile(path.join(config.public, 'instajam.html'));
 });
 
 router.get('/api', apiRouter);
