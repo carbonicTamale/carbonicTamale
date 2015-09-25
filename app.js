@@ -40,8 +40,6 @@ var errorHandler = require('./error-handler')(app);
 app.use(errorHandler);
 
 
-
-
 // Get port from environment and store in Express.
 var port = process.env.PORT || '3000';
 app.set('port', port);
