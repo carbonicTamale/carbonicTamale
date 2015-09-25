@@ -8,6 +8,10 @@
 <body>
   <script>
   var socket = io();
+  var emitInvitation = function(invitee, id) {
+    socket.emit('invitation', invitee, id);
+  };
+  socket.on('come jam!');
   </script>
 </body>
 </html>
