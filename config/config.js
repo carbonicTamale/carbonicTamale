@@ -6,9 +6,9 @@ var port = null;
 if (process.env.NODE_ENV === 'PRODUCTION') {
   console.log("Running in production mode");
   port = 80;
-  GITHUB_CLIENT_ID = "0eb89ec2db9a67ce99e6";
-  GITHUB_CLIENT_SECRET = "df75e52ab9e7029f57fdd937bdda0cac032ae9c6";
-  GITHUB_CALLBACK = "http://198.199.106.215/auth/github/callback";
+  GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+  GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+  GITHUB_CALLBACK = process.env.GITHUB_CALLBACK;
 }
 else {
   console.log("Running in development mode");

@@ -6,3 +6,5 @@ public/lib
 /node_modules
 
 /db/*.sqlite
+
+config.js
