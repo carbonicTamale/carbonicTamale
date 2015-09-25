@@ -12,6 +12,7 @@
 		var roomName = '2307';
 
 		socket.on(roomName + ' played', function(data) {
+			console.log('received data');
 			var key_num = data[0];
 			var key_vel = data[1];
 			var key_position = data[2];
