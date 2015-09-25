@@ -20,9 +20,9 @@
 			var key_position = data[2];
 
 			if (key_position === 'down')
-				soundFactory.playSound(key_vel);
+				soundFactory.playSound(key_num, key_vel);
 			else
-				soundFactory.stopSound(key_vel);
+				soundFactory.stopSound(key_num, key_vel);
 		});
 
 		fillKeyMap();
