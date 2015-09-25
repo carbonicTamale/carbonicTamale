@@ -8,10 +8,18 @@ var passport = require('passport');
 var session = require('express-session');
 var db = require('./db-config');
 
+var socketio = require('socket.io');
+
 var routes = require('./routes/index');
 // var api = require('./routes/api');
 
 var app = express();
+
+var io = socketio.listen(app);
+
+io.sockets.on('connection', function (socket) {
+  console.log('A user has connected');
+});
 
 
 // uncomment after placing your favicon in /public
