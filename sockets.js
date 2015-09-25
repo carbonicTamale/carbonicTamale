@@ -10,7 +10,6 @@ module.exports = function(server, sessionMiddleware) {
 
   io.sockets.on('connection', function (socket) {
     var session = socket.request.session;
-    console.log(session);
     console.log('A user has connected');
 
   server.on('error', console.log.bind('error'));
