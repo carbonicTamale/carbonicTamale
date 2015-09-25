@@ -13,7 +13,7 @@
 		var observerCallbacks = [];
 		var key_map = [];
 
-		socket.on(roomName + ' played', function(data) {
+		socket.on(roomName + ' event', function(data) {
 			console.log('received data');
 			var key_num = data[0];
 			var key_vel = data[1];
