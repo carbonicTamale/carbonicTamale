@@ -46,7 +46,6 @@ module.exports = function(app) {
   app.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
-      console.log(req);
       var username = req.user.username;
       var email = req.user.emails[0].value;
       var name = req.user.displayName;
