@@ -9,7 +9,7 @@ var knex = require('knex')({
     password: 'password',
     database: 'instajam',
     charset: 'utf8',
-    filename: path.join(__dirname, 'db/instajam.sqlite')
+    filename: path.join(__dirname, '../db/instajam.sqlite')
   }
 });
 
