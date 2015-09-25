@@ -46,12 +46,13 @@
     background-color: #01A9ED; }
 
 .intro-text {
-  font: 48px 'Patua One' white;
+  font: 54px 'Patua One' white;
+  text-shadow: 1px 1px 4px #969696;
   color: #FFF; }
 
 .trial-button {
   background-color: #FF8F6D !important;
-  margin-top: 20px;
+  margin-top: 30px;
   padding: 10px; }
   .trial-button span {
     font: 30px 'Patua One';

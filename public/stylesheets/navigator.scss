@@ -62,5 +62,53 @@
 
 .active {
 	background-color: #009688;
+}
 
+/*=======================================
+=            JAM INSTRUMENTS            =
+=======================================*/
+
+.instrument-arrow-left {
+	margin-left: 20px;
+	padding-right: 8px;
+}
+
+.instrument-arrow-right {
+	padding-left: 8px;
+}
+
+.instrument-arrow {
+	color: #000;
+	&:hover {
+		text-shadow: 0px 0px 7px rgba(3, 169, 244, 1);
+	}
+}
+
+.instrument-icon {
+	width: 100px;
+	height: 100px;
+}
+
+.player-name {
+	margin-left: 10px;
+	font: 30px 'Righteous';
+}
+
+.volume-slider {
+	height: 21px;
+	width: 200px;
+	margin-left: 50px;
+
+	&.rz-pointer {
+		background-color: #09A1ED;
+	}
+}
+
+/*=======================================
+=            JAM SHEET MUSIC            =
+=======================================*/
+
+.sheet-music {
+	width: 500px;
+	height: auto;
 }
