@@ -53,10 +53,10 @@
 			if (self.device.name === 'C.24') {
 				if (key_state === 144) {
 					if (key_vel !== 0) {
-						keyDown(key_state, key_num, key_vel);
+						keyDown(key_num, key_vel);
 					}
 					else {
-						keyUp(key_num);
+						keyUp(key_num, key_vel);
 					}
 				}
 			}
@@ -67,7 +67,7 @@
 			soundFactory.playSound(key_num, key_vel);
 		}
 
-		function keyUp(key_num) {
+		function keyUp(key_num, key_vel) {
 			socket.emit('note event', [key_num, key_vel, 'up'], roomName);
 			soundFactory.stopSound(key_num);
 		}
