@@ -1,63 +1,14 @@
 <md-content layout="row" layout-fill flex>
   <div layout="column">
-    <div class="player-name">Chris Yung</div>
-    <div layout="row" layout-align="start center" class="instrument-info">
-      <i class="fa fa-angle-left fa-3x instrument-arrow instrument-arrow-left"></i>
-      <img src="assets/img/piano_circle.png" alt="instrument" class="instrument-icon">
-      <i class="fa fa-angle-right fa-3x instrument-arrow instrument-arrow-right"></i>
-      <div>
-        <rzslider rz-slider-model="jam.volumeSlider.value" rz-slider-floor="jam.volumeSlider.floor" rz-slider-ceil="jam.volumeSlider.ceil" rz-slider-hide-limit-labels="true" class="volume-slider"></rzslider>
+    <div class="player-panel" ng-repeat="user in jam.users">
+      <div class="player-name">{{user.name}}</div>
+      <div layout="row" layout-align="start center">
+        <player user="user"></player>
+        <div>
+          <rzslider rz-slider-model="jam.volumeSlider.value" rz-slider-floor="jam.volumeSlider.floor" rz-slider-ceil="jam.volumeSlider.ceil" rz-slider-hide-limit-labels="true" class="volume-slider"></rzslider>
+        </div>
+        <sound-bar key-map="jam.key_map"></sound-bar>
       </div>
-      <sound-bar key-map="jam.key_map"></sound-bar>
-    </div>
-    <div class="player-name">Blaine Killen</div>
-    <div layout="row" layout-align="start center" class="instrument-info">
-      <i class="fa fa-angle-left fa-3x instrument-arrow instrument-arrow-left"></i>
-      <img src="assets/img/drums_circle.png" alt="instrument" class="instrument-icon">
-      <i class="fa fa-angle-right fa-3x instrument-arrow instrument-arrow-right"></i>
-      <div>
-        <rzslider rz-slider-model="jam.volumeSlider.value" rz-slider-floor="jam.volumeSlider.floor" rz-slider-ceil="jam.volumeSlider.ceil" rz-slider-hide-limit-labels="true" class="volume-slider"></rzslider>
-      </div>
-      <sound-bar key-map="jam.key_map"></sound-bar>
-    </div>
-    <div class="player-name">Matthew Brooks</div>
-    <div layout="row" layout-align="start center" class="instrument-info">
-      <i class="fa fa-angle-left fa-3x instrument-arrow instrument-arrow-left"></i>
-      <img src="assets/img/guitar_circle.png" alt="instrument" class="instrument-icon">
-      <i class="fa fa-angle-right fa-3x instrument-arrow instrument-arr instrument-arrow-right"></i>
-      <div>
-        <rzslider rz-slider-model="jam.volumeSlider.value" rz-slider-floor="jam.volumeSlider.floor" rz-slider-ceil="jam.volumeSlider.ceil" rz-slider-hide-limit-labels="true" class="volume-slider"></rzslider>
-      </div>
-      <sound-bar key-map="jam.key_map"></sound-bar>
-    </div>
-    <div class="player-name">Marcus Buffett</div>
-    <div layout="row" layout-align="start center" class="instrument-info">
-      <i class="fa fa-angle-left fa-3x instrument-arrow instrument-arrow-left"></i>
-      <img src="assets/img/bassguitar_circle.png" alt="instrument" class="instrument-icon">
-      <i class="fa fa-angle-right fa-3x instrument-arrow instrument-arrow-right"></i>
-      <div>
-        <rzslider rz-slider-model="jam.volumeSlider.value" rz-slider-floor="jam.volumeSlider.floor" rz-slider-ceil="jam.volumeSlider.ceil" rz-slider-hide-limit-labels="true" class="volume-slider"></rzslider>
-      </div>
-      <sound-bar key-map="jam.key_map"></sound-bar>
-    </div>
-    <div class="player-name">Edgar Pabon</div>
-    <div layout="row" layout-align="start center" class="instrument-info">
-      <i class="fa fa-angle-left fa-3x instrument-arrow instrument-arrow-left"></i>
-      <img src="assets/img/vocals_circle.png" alt="instrument" class="instrument-icon">
-      <i class="fa fa-angle-right fa-3x instrument-arrow instrument-arrow-right"></i>
-      <div>
-        <rzslider rz-slider-model="jam.volumeSlider.value" rz-slider-floor="jam.volumeSlider.floor" rz-slider-ceil="jam.volumeSlider.ceil" rz-slider-hide-limit-labels="true" class="volume-slider"></rzslider>
-      </div>
-      <sound-bar key-map="jam.key_map"></sound-bar>
     </div>
   </div>
-  
-<!-- 	<div layout="column" class="sheet-music-container">
-		<img src="assets/img/summertime.jpg" alt="sheet music" class="sheet-music">
-		<div layout="row" flex class="sheet-arrow-container">
-		<i flex="10" class="fa fa-left-angle fa-2x sheet-arrow-left"></i>
-		<div flex="80"></div>
-		<i flex="10" class="fa fa-right-angle fa-2x sheet-arrow-left"></i>
-		</div>
-	</div> -->
 </md-content>
