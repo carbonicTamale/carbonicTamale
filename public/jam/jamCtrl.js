@@ -40,7 +40,7 @@
         name: 'Edgar Pabon',
         username: 'edgar',
         instrument: 'vocals',
-      },
+      }
     ];
 
 

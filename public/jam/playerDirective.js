@@ -23,6 +23,7 @@
 
     function link(scope, elem, attrs) {
       
+      console.log(scope.user.instrument);
     }
   }
 
