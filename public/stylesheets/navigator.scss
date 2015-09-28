@@ -68,6 +68,11 @@
 =            JAM INSTRUMENTS            =
 =======================================*/
 
+*:focus {
+outline: 0;
+outline: none;
+}
+
 .instrument-arrow-left {
 	margin-left: 20px;
 	padding-right: 8px;
@@ -98,6 +103,7 @@
 	height: 21px;
 	width: 200px;
 	margin-left: 50px;
+	margin-right: 50px;
 
 	&.rz-pointer {
 		background-color: #09A1ED;
