@@ -14,10 +14,40 @@
     };
 
     self.key_map = jamFactory.getKeyMap();
+
+    self.users = [
+      {
+        name: 'Chris Yung',
+        username: 'cyung',
+        instrument: 'piano',
+      },
+      {
+        name: 'Blaine Killen',
+        username: 'bkillenit',
+        instrument: 'drums',
+      },
+      {
+        name: 'Matthew Brooks',
+        username: 'mbrooks',
+        instrument: 'guitar',
+      },
+      {
+        name: 'Marcus Buffett',
+        username: 'mbuffett',
+        instrument: 'bassguitar',
+      },
+      {
+        name: 'Edgar Pabon',
+        username: 'edgar',
+        instrument: 'vocals',
+      }
+    ];
+
+
     var updateKeyMap = function() {
       self.key_map = jamFactory.getKeyMap();
       $scope.$apply();
-    }
+    };
 
     jamFactory.registerObserverCallback(updateKeyMap);
 
@@ -33,8 +63,8 @@
           	self.devices.push(input.value);
           }
 
-          // set first device to active device
-          self.activeDevice = self.devices[0];
+          // attach listeners to all plugged in MIDI devices
+          jamFactory.plugAll(self.devices);
         }
         else {
         	console.log('No devices detected!');
@@ -42,14 +72,6 @@
       })
       .catch(function(e) {
       	console.log(e);
-      })
-
-
-
-    $scope.$watch(function() {
-    	return self.activeDevice;
-    }, function() {
-    	jamFactory.plug(self.activeDevice);
-    })
+      });
   }
 })();

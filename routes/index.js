@@ -21,6 +21,8 @@ router.get('/dashboard', verify, function(req, res, next) {
   res.sendFile(path.join(config.public, 'instajam.html'));
 });
 
-router.get('/api', apiRouter);
+console.log('api router : ' + apiRouter);
+
+router.use('/api', apiRouter);
 
 module.exports = router;

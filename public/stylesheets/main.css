@@ -1,3 +1,6 @@
+/*===============================
+=            PALETTE            =
+===============================*/
 /*====================================
 =            TOP LOGO BAR            =
 ====================================*/
@@ -10,6 +13,7 @@
 
 .brand {
   font: 36px 'Patua One';
+  color: #FFF;
   line-height: 50px;
   margin-top: 6px; }
 
@@ -24,7 +28,7 @@
 .nav-user {
   font-size: 23.9px;
   text-shadow: 1px 1px 4px #969696;
-  color: #fff; }
+  color: #FFF; }
   .nav-user :last-child {
     font-size: 16px;
     opacity: 0.8; }
@@ -34,8 +38,6 @@
   height: 120px;
   border-radius: 50%;
   margin-bottom: 10px;
-  -webkit-box-shadow: 4px 4px 10px -5px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 4px 4px 10px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 4px 4px 10px -5px rgba(0, 0, 0, 0.75); }
 
 .nav-link {
@@ -43,7 +45,7 @@
 
 .nav-item {
   font: 26px 'Righteous';
-  color: #fff; }
+  color: #FFF; }
 
 .active {
   background-color: #009688; }
@@ -51,6 +53,10 @@
 /*=======================================
 =            JAM INSTRUMENTS            =
 =======================================*/
+*:focus {
+  outline: 0;
+  outline: none; }
+
 .instrument-arrow-left {
   margin-left: 20px;
   padding-right: 8px; }
@@ -59,7 +65,7 @@
   padding-left: 8px; }
 
 .instrument-arrow {
-  color: #000; }
+  color: #212121; }
   .instrument-arrow:hover {
     text-shadow: 0px 0px 7px #03a9f4; }
 
@@ -69,16 +75,18 @@
 
 .player-name {
   margin-left: 10px;
-  font: 30px 'Righteous'; }
+  font: 30px 'Righteous';
+  color: #212121; }
 
 .volume-slider {
   height: 21px;
   width: 200px;
-  margin-left: 50px; }
+  margin-left: 50px;
+  margin-right: 50px; }
   .volume-slider.rz-pointer {
-    background-color: #09A1ED; }
+    background-color: #03A9F4; }
 
 .sound-bar {
   margin-left: 40px; }
 
-/*# sourceMappingURL=navigator.css.map */
+/*# sourceMappingURL=main.css.map */
