@@ -3,7 +3,7 @@ var Friend = require('./Friend');
 
 var User = db.Model.extend({
   tableName: 'users',
-  friends: function() {
+  friends: function () {
     return this.belongsToMany(User, 'friends');
   }
 });

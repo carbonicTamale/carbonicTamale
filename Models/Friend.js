@@ -6,7 +6,7 @@ var Friend = db.Model.extend({
     return this.belongsTo(User);
   },
   friend: function () {
-    return this.belongsTo(User, 'friend_id');
+    return this.belongsTo(User);
   }
 });
 
