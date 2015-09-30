@@ -141,4 +141,33 @@ outline: none;
   background-color: $primary-light;
   text-align: center;
   margin: 20px;
+
+
+
+
+
+
+
+
+
+
+
+/*=======================================
+=               FRIENDS                 =
+=======================================*/
+
+.friend-container {
+	background-color: $accent;
+	margin: 20px 0 0 40px;
+	padding: 30px 30px 10px 30px;
+	color: $text-icons;
+	line-height: 2em;
+}
+
+.friends-panel:first-child {
+	margin-top: 20px;
+}
+
+.friend-name {
+	font-size: 23.9px;
 }

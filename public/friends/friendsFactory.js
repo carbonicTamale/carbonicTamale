@@ -15,11 +15,16 @@
       .then(function success (data) {
         return formatFriends(data.data.friends);
       }, function error (err) {
-        console.log(err);
+        console.log('getFriends http request error: ', err);
       });
     }
 
+    function getOnlineFriends (friends) {
+
+    }
+
     var services = {
+      getOnlineFriends: getOnlineFriends,
       getFriends: getFriends
     };
 

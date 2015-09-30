@@ -1,92 +1,41 @@
-/*===============================
-=            PALETTE            =
-===============================*/
-/*====================================
-=            TOP LOGO BAR            =
-====================================*/
-.logo-bar {
-  height: 64px;
-  background-color: #00796B !important; }
+/*
+Error: Invalid CSS after "}": expected "}", was ""
+        on line 174 of ./main.scss
 
-.logo-icon-container {
-  padding: 9px 5px 0 5px; }
+169: }
+170: 
+171: .friend-name {
+172: 	font-size: 23.9px;
+173: }
 
-.brand {
-  font: 36px 'Patua One';
-  color: #FFF;
-  line-height: 50px;
-  margin-top: 6px; }
-
-/*===============================
-=            SIDENAV            =
-===============================*/
-.sidenav {
-  background-color: #B2DFDB; }
-  .sidenav md-toolbar {
-    background-color: #B2DFDB; }
-
-.nav-user {
-  font-size: 23.9px;
-  text-shadow: 1px 1px 4px #969696;
-  color: #FFF; }
-  .nav-user :last-child {
-    font-size: 16px;
-    opacity: 0.8; }
-
-.user-icon {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-  box-shadow: 4px 4px 10px -5px rgba(0, 0, 0, 0.75); }
-
-.nav-link {
-  text-decoration: none; }
-
-.nav-item {
-  font: 26px 'Righteous';
-  color: #FFF; }
-
-.active {
-  background-color: #009688; }
-
-/*=======================================
-=            JAM INSTRUMENTS            =
-=======================================*/
-*:focus {
-  outline: 0;
-  outline: none; }
-
-.instrument-arrow-left {
-  margin-left: 20px;
-  padding-right: 8px; }
-
-.instrument-arrow-right {
-  padding-left: 8px; }
-
-.instrument-arrow {
-  color: #212121; }
-  .instrument-arrow:hover {
-    text-shadow: 0px 0px 7px #03a9f4; }
-
-.instrument-icon {
-  width: 100px;
-  height: 100px; }
-
-.player-name {
-  margin-left: 10px;
-  font: 30px 'Righteous';
-  color: #212121; }
-
-.volume-slider {
-  height: 21px;
-  width: 200px;
-  margin-left: 50px;
-  margin-right: 50px; }
-  .volume-slider.rz-pointer {
-    background-color: #03A9F4; }
-
-.sound-bar {
-  margin-left: 40px; }
-
-/*# sourceMappingURL=main.css.map */
+Backtrace:
+./main.scss:174
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:1162:in `expected'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:1098:in `expected'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:1093:in `tok!'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:640:in `block'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:632:in `ruleset'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:657:in `block_child'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:650:in `block_contents'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:117:in `stylesheet'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:42:in `parse'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/engine.rb:403:in `_to_tree'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/engine.rb:378:in `_render_with_sourcemap'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/engine.rb:295:in `render_with_sourcemap'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/plugin/compiler.rb:209:in `each'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/plugin/compiler.rb:470:in `on_file_changed'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/lib/sass/plugin/compiler.rb:328:in `block in watch'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/vendor/listen/lib/listen/listener.rb:252:in `call'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/vendor/listen/lib/listen/listener.rb:252:in `on_change'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/vendor/listen/lib/listen/listener.rb:290:in `block in initialize_adapter'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/vendor/listen/lib/listen/adapters/polling.rb:48:in `call'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/vendor/listen/lib/listen/adapters/polling.rb:48:in `poll_changed_directories'
+/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.18/vendor/listen/lib/listen/adapter.rb:299:in `block in start_poller'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid CSS after \"}\": expected \"}\", was \"\"\A         on line 174 of ./main.scss\A \A 169: }\A 170: \A 171: .friend-name {\A 172: 	font-size: 23.9px;\A 173: }"; }
