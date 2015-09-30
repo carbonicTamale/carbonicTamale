@@ -16,6 +16,10 @@ $divider: #B6B6B6;
 =            TOP LOGO BAR            =
 ====================================*/
 
+* {
+	overflow-y: hidden;
+}
+
 .logo-bar {
 	height: 64px;
 	background-color: $primary-dark !important;

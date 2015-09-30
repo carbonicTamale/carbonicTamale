@@ -26,6 +26,7 @@
   <script src="app.js"></script>
   <script src="dashboard/navbarCtrl.js"></script>
   <script src="dashboard/dashboardCtrl.js"></script>
+  <script src="dashboard/toastCtrl.js"></script>
   <script src="jam/jamFactory.js"></script>
   <script src="jam/soundFactory.js"></script>
   <script src="jam/jamCtrl.js"></script>
@@ -64,6 +65,7 @@
               </md-item-content>
             </a>
           </md-item>
+          <md-button ng-click="nav.showToast()">Show Toast</md-button>
         </md-list>
       </md-sidenav>
       <div ui-view></div>
