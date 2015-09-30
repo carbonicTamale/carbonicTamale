@@ -7,7 +7,8 @@ var Friend = db.Model.extend({
   },
   friend: function () {
     return this.belongsTo(User);
-  }
+  },
+  hasTimestamps: true
 });
 
 module.exports = Friend;
