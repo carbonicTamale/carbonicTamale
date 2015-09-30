@@ -31,10 +31,10 @@ router.post('/users/friends', function (req, res, next) {
     userID = found.models[0].id;
     friendID = found.models[1].id;
     //Save a friend relationship to the friends table using those IDs.
-    Friend.forge({ user_id: userID, friend_id: friendID })
+    Friend.forge({ 'user_id': userID, 'friend_id': friendID })
     .save()
     .then(function (friendship) {
-      res.send(friendship);
+      res.send('friendship saved');
     });
 
   });
@@ -42,10 +42,10 @@ router.post('/users/friends', function (req, res, next) {
 });
 
 router.get('/users/friends', function (req, res, next) {
-  var username = req.user.username;
+  var username = 'mracus';
 
   new User({ 'username': username })
-  .fetch({withRelated:['friends']})
+  .fetch({ withRelated: ['friends'] })
   .then(function(friends) {
     res.send(friends);
   }); 
