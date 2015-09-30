@@ -1,1 +1,13 @@
-FRIENDS
+<md-content layout="row" layout-fill flex>
+  <div layout="column">
+    <div class="friends-panel" ng-repeat="friend in friends">
+      <div class="friend-username">{{friend.username}}</div>
+      <div class="friend-name">{{friend.name}}</div>
+      <div class="friend-email">{{friend.email}}</div>
+      <div layout="row" layout-align="start center">
+        <div>
+        </div>
+      </div>
+    </div>
+  </div>
+</md-content>
