@@ -1,1 +1,15 @@
-DASHBOARD
+<md-content layout="row" layout-fill flex>
+  <div layout="column">
+    <md-card class="activity-feed md-padding">
+      <h2>Activity Feed</h2>
+      <md-card class="friend-card" ng-repeat="event in dashboard.events">
+      <div ng-if="event.type === 'jam'">
+        You jammed with {{event.jammers[0]}}
+      </div>
+      <div ng-if="event.type === 'friend'">
+        You became friends with {{event.friend}}
+      </div>
+      </md-card>
+    </md-content>
+  </div>
+</md-content>
