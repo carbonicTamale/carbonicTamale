@@ -6,6 +6,7 @@
 
 	function friendsCtrl ($scope, friendsFactory) {
 		$scope.friends = [];
+    $scope.onlineFriends = [];
 
     function getAndShowFriends () {
       friendsFactory.getFriends()
@@ -20,7 +21,6 @@
     function getOnlineFriends () {
       friendsFactory.getOnlineFriends($scope.friends);
     }
-
 
     getAndShowFriends();
     getOnlineFriends();

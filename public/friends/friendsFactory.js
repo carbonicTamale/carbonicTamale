@@ -6,6 +6,8 @@
 
   function friendsFactory ($http) {
 
+    var socket = io();
+
     function getFriends () {
 
       return $http({
@@ -20,7 +22,10 @@
     }
 
     function getOnlineFriends (friends) {
-
+      socket.emit('get-online-friends');
+      socket.on('send-online-friends', function (friends) {
+        console.log(friends);
+      });
     }
 
     var services = {
