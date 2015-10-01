@@ -5,24 +5,40 @@
 	.controller('FriendsCtrl', friendsCtrl);
 
 	function friendsCtrl ($scope, friendsFactory) {
-		$scope.friends = [];
-    $scope.onlineFriends = [];
 
+    var self = this;
+
+		self.friends = [];
+    self.onlineFriends = {};
+
+    //This handles two asynchronous systems:
+    //1.) Retrieve the user's list of friends from the database
+    //2.) Use that list of friends to find those who are online
     function getAndShowFriends () {
       friendsFactory.getFriends()
       .then(function (friends) {
-        $scope.friends = friends;
+        self.friends = friends;
+        getOnlineFriends(friends)
       })
       .catch(function (err) {
         console.log('getAndShowFriends error: ', err);
       });
     }
 
-    function getOnlineFriends () {
-      friendsFactory.getOnlineFriends($scope.friends);
+    function getOnlineFriends (friends) {
+      friendsFactory.getOnlineFriends(friends)
+      .then(function (onlineFriends) {
+        self.onlineFriends = onlineFriends;
+      })
+      .catch(function (err) {
+        console.log('getOnlineFriends error: ', err);
+      });
     }
 
-    getAndShowFriends();
-    getOnlineFriends();
+    function initialize () {
+      getAndShowFriends();
+    }
+
+    initialize();
 	}
 })();

@@ -1,12 +1,12 @@
-<md-content layout="row" layout-fill flex>
+<md-content layout="row" ng-controller="FriendsCtrl as friends" layout-fill flex>
   <div layout="column">
-    <div class="friends-panel" ng-repeat="friend in friends">
+    <div class="friends-panel" ng-repeat="friend in friends.friends">
       <md-whiteframe class="friend-container md-whiteframe-10dp" flex layout="column" layout-align="center start">
         <div class="friend-name">{{friend.name}}</div>
         <div class="friend-username">{{friend.username}}</div>
         <div class="friend-email">{{friend.email}}</div>
         <div flex layout="row" layout-align="space-between center">
-          <div>online!</div>
+          <div ng-model="onlineFriends" ng-show="onlineFriends[{{friend.username}}]">online!</div>
           <md-button class="md-fab" aria-label="Let's jam.">
             JAM
           </md-button>
