@@ -4,7 +4,25 @@
 	angular.module('app')
 	.controller('FriendsCtrl', friendsCtrl);
 
-	function friendsCtrl() {
-		
+	function friendsCtrl ($scope, friendsFactory) {
+		$scope.friends = [];
+    $scope.onlineFriends = [];
+
+    function getAndShowFriends () {
+      friendsFactory.getFriends()
+      .then(function (friends) {
+        $scope.friends = friends;
+      })
+      .catch(function (err) {
+        console.log('getAndShowFriends error: ', err);
+      });
+    }
+
+    function getOnlineFriends () {
+      friendsFactory.getOnlineFriends($scope.friends);
+    }
+
+    getAndShowFriends();
+    getOnlineFriends();
 	}
 })();

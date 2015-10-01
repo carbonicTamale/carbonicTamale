@@ -16,6 +16,10 @@ $divider: #B6B6B6;
 =            TOP LOGO BAR            =
 ====================================*/
 
+* {
+	overflow-y: hidden;
+}
+
 .logo-bar {
 	height: 64px;
 	background-color: $primary-dark !important;
@@ -125,4 +129,36 @@ outline: none;
 
 .sound-bar {
 	margin-left: 40px;
+}
+
+.friend-card {
+  background-color: $primary;
+  color: white;
+  padding: 10px;
+}
+
+.activity-feed {
+  background-color: $primary-light;
+  text-align: center;
+  margin: 20px;
+}
+
+/*=======================================
+=               FRIENDS                 =
+=======================================*/
+
+.friend-container {
+	background-color: $accent;
+	margin: 20px 0 0 40px;
+	padding: 30px 30px 10px 30px;
+	color: $text-icons;
+	line-height: 2em;
+}
+
+.friends-panel:first-child {
+	margin-top: 20px;
+}
+
+.friend-name {
+	font-size: 23.9px;
 }
