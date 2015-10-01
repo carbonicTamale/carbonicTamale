@@ -36,6 +36,13 @@ module.exports = function(server, sessionMiddleware) {
         .emit('come jam!', invitation);
       }
     });
+    socket.on('get-online-friends', function () { 
+      var onlineFriends = [];
+      for(var key in openSockets) {
+        onlineFriends.push(key);
+      }
+      socket.emit('send-online-friends', onlineFriends);
+    });
 
   });
 
