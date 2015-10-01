@@ -7,6 +7,11 @@
   function navbarCtrl($state, $mdToast) {
     var self = this;
 
+    self.user = {
+      name: 'Marcus Buffett',
+      email: 'ilovechicken@gmail.com'
+    };
+
     self.menu = [
       {
         link: 'dashboard',

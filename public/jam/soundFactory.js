@@ -66,7 +66,7 @@
     }
 
     function playSound(key_num, key_vel) {
-      var sound = instruments[selected%6][key_num];
+      var sound = instruments[selected%instruments.length][key_num];
       if (Object.keys(sound).length === 0)
         return;
       
@@ -76,7 +76,7 @@
     }
 
     function stopSound(key_num) {
-      var sound = instruments[selected%6][key_num];
+      var sound = instruments[selected%instruments.length][key_num];
       if (!sound)
         return;
       console.log('sound =', sound);
