@@ -36,10 +36,14 @@ module.exports = function(server, sessionMiddleware) {
         .emit('come jam!', invitation);
       }
     });
-    socket.on('get-online-friends', function () { 
+    socket.on('get-online-friends', function (friends) { 
+      console.log(friends);
       var onlineFriends = [];
-      for(var key in openSockets) {
-        onlineFriends.push(key);
+      for(var i = 0; i < friends.length; i++) {
+        var friend = friends[i].username;
+        if(openSockets[friend]) {
+          onlineFriends.push(friend);
+        }
       }
       socket.emit('send-online-friends', onlineFriends);
     });
