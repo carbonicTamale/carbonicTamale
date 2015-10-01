@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>config.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="Friends.html">
+                  Friends.js
+                </a>
+              
+                
+                <a class="source" href="Users.html">
+                  Users.js
+                </a>
+              
+                
+                <a class="source" href="Gruntfile.html">
+                  Gruntfile.js
+                </a>
+              
+                
+                <a class="source" href="Friend.html">
+                  Friend.js
+                </a>
+              
+                
+                <a class="source" href="User.html">
+                  User.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  app.js
+                </a>
+              
+                
+                <a class="source" href="auth.html">
+                  auth.js
+                </a>
+              
+                
+                <a class="source" href="config.html">
+                  config.js
+                </a>
+              
+                
+                <a class="source" href="db-config.html">
+                  db-config.js
+                </a>
+              
+                
+                <a class="source" href="error-handler.html">
+                  error-handler.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  app.js
+                </a>
+              
+                
+                <a class="source" href="route-config.html">
+                  route-config.js
+                </a>
+              
+                
+                <a class="source" href="api.html">
+                  api.js
+                </a>
+              
+                
+                <a class="source" href="auth.html">
+                  auth.js
+                </a>
+              
+                
+                <a class="source" href="index.html">
+                  index.js
+                </a>
+              
+                
+                <a class="source" href="users.html">
+                  users.js
+                </a>
+              
+                
+                <a class="source" href="verify.html">
+                  verify.js
+                </a>
+              
+                
+                <a class="source" href="sockets.html">
+                  sockets.js
+                </a>
+              
+                
+                <a class="source" href="test.html">
+                  test.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>config.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">var</span> GITHUB_CLIENT_ID = <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">var</span> GITHUB_CLIENT_SECRET = <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">var</span> GITHUB_CALLBACK = <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">var</span> port = <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">if</span> (process.env.NODE_ENV === <span class="hljs-string">'PRODUCTION'</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Running in production mode"</span>);
+  port = <span class="hljs-number">80</span>;
+  GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+  GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+  GITHUB_CALLBACK = process.env.GITHUB_CALLBACK;
+}
+<span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Running in development mode"</span>);
+  port = <span class="hljs-number">3000</span>;
+  GITHUB_CLIENT_ID = <span class="hljs-string">"c9f79f6f0da28cfe0d5e"</span>;
+  GITHUB_CLIENT_SECRET = <span class="hljs-string">"f9c1f12d3029fc8f23f5e851a83ec660b5318066"</span>;
+  GITHUB_CALLBACK = <span class="hljs-string">"http://127.0.0.1:3000/auth/github/callback"</span>;
+}
+
+<span class="hljs-built_in">module</span>.exports = {
+  public: path.join(__dirname, <span class="hljs-string">'../public'</span>),
+  port: port,
+  GITHUB_CLIENT_ID: GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET: GITHUB_CLIENT_SECRET,
+  GITHUB_CALLBACK: GITHUB_CALLBACK
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
