@@ -4,9 +4,11 @@
   angular.module('app')
   .factory('friendsFactory', friendsFactory);
 
-  function friendsFactory ($http) {
+  function friendsFactory ($http, $q) {
 
     var socket = io();
+
+    var onlineFriends = {};
 
     function getFriends () {
 
@@ -21,16 +23,31 @@
       });
     }
 
-    function getOnlineFriends (friends) {
-      socket.emit('get-online-friends');
-      socket.on('send-online-friends', function (friends) {
-        console.log(friends);
+    function getOnlineFriends (friendsList) {
+      socket.emit('get-online-friends', friendsList);
+      return receiveOnlineFriends();
+    }
+
+    function receiveOnlineFriends() {
+
+      return $q(function (resolve, reject) {
+        socket.on('send-online-friends', function (friends) {
+          if (friends) {
+            var onlineFriends = {};
+            for(var i = 0; i < friends.length; i++) {
+              onlineFriends[friends[i]] = friends[i];
+            }
+            resolve(onlineFriends);
+          } else {
+            resolve('online friends not available');
+          }
+        });
       });
     }
 
     var services = {
       getOnlineFriends: getOnlineFriends,
-      getFriends: getFriends
+      getFriends: getFriends,
     };
 
     return services;

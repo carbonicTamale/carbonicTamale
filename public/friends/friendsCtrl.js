@@ -5,24 +5,34 @@
 	.controller('FriendsCtrl', friendsCtrl);
 
 	function friendsCtrl ($scope, friendsFactory) {
-		$scope.friends = [];
-    $scope.onlineFriends = [];
+
+    var self = this;
+
+		self.friends = [];
+    self.onlineFriends = {};
 
     function getAndShowFriends () {
       friendsFactory.getFriends()
       .then(function (friends) {
-        $scope.friends = friends;
+        self.friends = friends;
+        friendsFactory.getOnlineFriends(friends)
+        .then(function (onlineFriends) {
+          self.onlineFriends = onlineFriends;
+        });
       })
       .catch(function (err) {
         console.log('getAndShowFriends error: ', err);
       });
     }
 
-    function getOnlineFriends () {
-      friendsFactory.getOnlineFriends($scope.friends);
+    function showOnlineFriends () {
+      friendsFactory.getOnlineFriends(self.friends);
     }
 
-    getAndShowFriends();
-    getOnlineFriends();
+    function initialize () {
+      getAndShowFriends();
+    }
+
+    initialize();
 	}
 })();
