@@ -1,15 +1,17 @@
 <md-content layout="row" layout-fill flex>
   <div layout="column">
     <div class="friends-panel" ng-repeat="friend in friends">
-      <div class="friend-container">
-        <div class="friend-username">{{friend.username}}</div>
+      <md-whiteframe class="friend-container md-whiteframe-10dp" flex layout="column" layout-align="center start">
         <div class="friend-name">{{friend.name}}</div>
+        <div class="friend-username">{{friend.username}}</div>
         <div class="friend-email">{{friend.email}}</div>
-      </div>
-      <div layout="row" layout-align="start center">
-        <div>
+        <div flex layout="row" layout-align="space-between center">
+          <div>online!</div>
+          <md-button class="md-fab" aria-label="Let's jam.">
+            JAM
+          </md-button>
         </div>
-      </div>
+      </md-whiteframe>
     </div>
   </div>
 </md-content>

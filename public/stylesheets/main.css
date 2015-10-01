@@ -4,6 +4,9 @@
 /*====================================
 =            TOP LOGO BAR            =
 ====================================*/
+* {
+  overflow-y: hidden; }
+
 .logo-bar {
   height: 64px;
   background-color: #00796B !important; }
@@ -88,5 +91,31 @@
 
 .sound-bar {
   margin-left: 40px; }
+
+.friend-card {
+  background-color: #009688;
+  color: white;
+  padding: 10px; }
+
+.activity-feed {
+  background-color: #B2DFDB;
+  text-align: center;
+  margin: 20px; }
+
+/*=======================================
+=               FRIENDS                 =
+=======================================*/
+.friend-container {
+  background-color: #03A9F4;
+  margin: 20px 0 0 40px;
+  padding: 30px 30px 10px 30px;
+  color: #FFF;
+  line-height: 2em; }
+
+.friends-panel:first-child {
+  margin-top: 20px; }
+
+.friend-name {
+  font-size: 23.9px; }
 
 /*# sourceMappingURL=main.css.map */

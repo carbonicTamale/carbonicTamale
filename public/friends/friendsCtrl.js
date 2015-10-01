@@ -6,17 +6,23 @@
 
 	function friendsCtrl ($scope, friendsFactory) {
 		$scope.friends = [];
+    $scope.onlineFriends = [];
 
     function getAndShowFriends () {
       friendsFactory.getFriends()
       .then(function (friends) {
-        console.log('friends', friends);
         $scope.friends = friends;
       })
       .catch(function (err) {
-        console.log(err);
+        console.log('getAndShowFriends error: ', err);
       });
     }
+
+    function getOnlineFriends () {
+      friendsFactory.getOnlineFriends($scope.friends);
+    }
+
     getAndShowFriends();
+    getOnlineFriends();
 	}
 })();
