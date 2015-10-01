@@ -9,7 +9,8 @@
       playSound: playSound,
       stopSound: stopSound,
       nextInstrument: nextInstrument,
-      prevInstrument: prevInstrument
+      prevInstrument: prevInstrument,
+      getInstrumentIcon: getInstrumentIcon
     };
 
     var sounds_piano = [];
@@ -21,6 +22,8 @@
 
     var instruments = [sounds_piano, sounds_bassguitar, sounds_electricguitar,
       sounds_drums, sounds_tenorsax, sounds_trombone];
+    var icon_names = ['piano', 'bassguitar', 'guitar', 'drums', 'tenorsax', 'trombone'];
+    var currentIcon = icon_names[0];
     var selected = 0;
 
     populateSoundFiles();
@@ -28,14 +31,20 @@
 
     return services;
 
+    function getInstrumentIcon() {
+      return currentIcon;
+    }
+
     function nextInstrument() {
       console.log('next instrument');
       selected++;
+      currentIcon = icon_names[selected % icon_names.length];
     }
 
     function prevInstrument() {
       console.log('prev instrument');
       selected+=5;
+      currentIcon = icon_names[selected % icon_names.length];
     }
 
     function populateSoundFiles() {

@@ -43,6 +43,7 @@
       }
     ];
 
+    self.users[0].instrument = soundFactory.getInstrumentIcon();
 
     var updateKeyMap = function() {
       self.key_map = jamFactory.getKeyMap();
@@ -82,5 +83,11 @@
     self.prevInstrument = function() {
       soundFactory.prevInstrument();
     };
+
+    $scope.$watch(function() {
+      return soundFactory.getInstrumentIcon();
+    }, function() {
+      self.users[0].instrument = soundFactory.getInstrumentIcon();
+    })
   }
 })();
