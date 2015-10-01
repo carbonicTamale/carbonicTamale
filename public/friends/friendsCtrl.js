@@ -11,22 +11,28 @@
 		self.friends = [];
     self.onlineFriends = {};
 
+    //This handles two asynchronous systems:
+    //1.) Retrieve the user's list of friends from the database
+    //2.) Use that list of friends to find those who are online
     function getAndShowFriends () {
       friendsFactory.getFriends()
       .then(function (friends) {
         self.friends = friends;
-        friendsFactory.getOnlineFriends(friends)
-        .then(function (onlineFriends) {
-          self.onlineFriends = onlineFriends;
-        });
+        getOnlineFriends(friends)
       })
       .catch(function (err) {
         console.log('getAndShowFriends error: ', err);
       });
     }
 
-    function showOnlineFriends () {
-      friendsFactory.getOnlineFriends(self.friends);
+    function getOnlineFriends (friends) {
+      friendsFactory.getOnlineFriends(friends)
+      .then(function (onlineFriends) {
+        self.onlineFriends = onlineFriends;
+      })
+      .catch(function (err) {
+        console.log('getOnlineFriends error: ', err);
+      });
     }
 
     function initialize () {

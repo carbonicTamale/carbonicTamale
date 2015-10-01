@@ -22,12 +22,15 @@
         console.log('getFriends http request error: ', err);
       });
     }
-
+    //Emit socket event and then return the value from our promisified function
+    //The return value of the promisified receiveOnlineFriends will be an object with the list of online friends.
     function getOnlineFriends (friendsList) {
+      
       socket.emit('get-online-friends', friendsList);
       return receiveOnlineFriends();
     }
-
+    //Use $q to create a promise object from the sockets.on listener.
+    //This allows us to return the async function's object back to the controller.
     function receiveOnlineFriends() {
 
       return $q(function (resolve, reject) {
@@ -39,7 +42,7 @@
             }
             resolve(onlineFriends);
           } else {
-            resolve('online friends not available');
+            reject('online friends not available');
           }
         });
       });
