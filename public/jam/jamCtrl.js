@@ -4,7 +4,7 @@
   angular.module('app')
   .controller('JamCtrl', jamCtrl);
 
-  function jamCtrl($scope, Devices, jamFactory) {
+  function jamCtrl($scope, Devices, jamFactory, soundFactory) {
     var self = this;
     self.devices = [];
     self.volumeSlider = {
@@ -73,5 +73,14 @@
       .catch(function(e) {
       	console.log(e);
       });
+
+
+    self.nextInstrument = function() {
+      soundFactory.nextInstrument();
+    };
+
+    self.prevInstrument = function() {
+      soundFactory.prevInstrument();
+    };
   }
 })();

@@ -3,7 +3,12 @@
     <div class="player-panel" ng-repeat="user in jam.users">
       <div class="player-name">{{user.name}}</div>
       <div layout="row" layout-align="start center">
-        <player user="user"></player>
+        <div layout="row" layout-align="start center">
+          <i class="fa fa-angle-left fa-3x instrument-arrow instrument-arrow-left" ng-click="jam.prevInstrument()"></i>
+          <img src="assets/img/{{user.instrument}}_circle.png" alt="instrument" class="instrument-icon">
+          <i class="fa fa-angle-right fa-3x instrument-arrow instrument-arrow-right" ng-click="jam.nextInstrument()"></i>
+        </div>
+        <!-- <player user="user"></player> -->
         <div>
           <rzslider rz-slider-model="jam.volumeSlider.value" rz-slider-floor="jam.volumeSlider.floor" rz-slider-ceil="jam.volumeSlider.ceil" rz-slider-hide-limit-labels="true" class="volume-slider"></rzslider>
         </div>

@@ -2,49 +2,86 @@
   'use strict';
 
   angular.module('app')
-  .factory('soundFactory', soundFactory);
+    .factory('soundFactory', soundFactory);
 
   function soundFactory() {
     var services = {
       playSound: playSound,
-      stopSound: stopSound
+      stopSound: stopSound,
+      nextInstrument: nextInstrument,
+      prevInstrument: prevInstrument
     };
 
     var sounds_piano = [];
+    var sounds_bassguitar = [];
+    var sounds_electricguitar = [];
+    var sounds_drums = [];
+    var sounds_tenorsax = [];
+    var sounds_trombone = [];
+
+    var instruments = [sounds_piano, sounds_bassguitar, sounds_electricguitar,
+      sounds_drums, sounds_tenorsax, sounds_trombone];
+    var selected = 0;
+
     populateSoundFiles();
+
 
     return services;
 
-    function populateSoundFiles() {
-      for (var i=0; i<=21; i++) {
-        sounds_piano.push({});
-      }
-      for (var i=21; i<=108; i++) {
-        var filename = 'assets/sounds/piano-' + i + '.mp3';
-          var sound = new Howl({
-            urls: [filename],
-            volume: 0.3,
-            onloaderror: function() {
-              console.log('Error loading file.');
-            }
-          });
+    function nextInstrument() {
+      console.log('next instrument');
+      selected++;
+    }
 
-          sounds_piano.push(sound);
+    function prevInstrument() {
+      console.log('prev instrument');
+      selected+=5;
+    }
+
+    function populateSoundFiles() {
+      populateInstrument('piano', 21, 108, sounds_piano);
+      populateInstrument('bass_classic', 36, 97, sounds_bassguitar);
+      populateInstrument('guitar_electric', 36, 80, sounds_electricguitar);
+      populateInstrument('drums_rock', 36, 57, sounds_drums);
+      populateInstrument('tenorsax', 36, 85, sounds_tenorsax);
+      populateInstrument('trombone', 36, 78, sounds_trombone);
+    }
+
+    function populateInstrument(name, start, end, samples) {
+      for (var i = 0; i < start; i++) {
+        samples.push({});
+      }
+      for (var i = start; i <= end; i++) {
+        var filename = 'assets/sounds/' + name + '-' + i + '.mp3';
+        var sound = new Howl({
+          urls: [filename],
+          volume: 0.3,
+          onloaderror: function() {
+            console.log('Error loading file.');
+          }
+        });
+
+        samples.push(sound);
       };
     }
 
     function playSound(key_num, key_vel) {
-      if (key_num < 21 || key_num > 108)
+      var sound = instruments[selected%6][key_num];
+      if (Object.keys(sound).length === 0)
         return;
-
-      var sound = sounds_piano[key_num];
+      
       var volume = key_vel / 127; // normalize to [0,1]
       sound.volume(volume);
       sound.play();
     }
 
     function stopSound(key_num) {
-      var sound = sounds_piano[key_num];
+      var sound = instruments[selected%6][key_num];
+      if (!sound)
+        return;
+      console.log('sound =', sound);
+      if (Object.keys(sound).length === 0)
+        return;
       sound.fade(0.3, 0, 50, function() {
         sound.stop();
       });
