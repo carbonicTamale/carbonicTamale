@@ -11,9 +11,8 @@ var router = express.Router();
 var verify = require('./verify');
 
 router.post('/users/friends', function (req, res, next) {
-  //how are these coming in on the req body? 
-  //This will need to be updated.
-  var user = req.user.username;
+
+  var user = req.body.username;
   var friend = req.body.friend;
   console.log(user, friend);
   //First retrieve the two users by query on their usernames
@@ -42,7 +41,8 @@ router.post('/users/friends', function (req, res, next) {
 });
 
 router.get('/users/friends', function (req, res, next) {
-  var username = 'mracus';
+  
+  var username = req.user.username;
 
   new User({ 'username': username })
   .fetch({ withRelated: ['friends'] })
