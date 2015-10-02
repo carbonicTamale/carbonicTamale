@@ -13,7 +13,14 @@
     self.newFriend = '';
 
     self.addFriend = function (user) {
-      friendsFactory.addFriend(user, self.newFriend);
+      friendsFactory.addFriend(user, self.newFriend)
+      .then(function (data) {
+        self.getAndShowFriends();
+        console.log(data);
+      })
+      .catch(function (err) {
+        console.log('addFriend error: ', err);
+      });
     };
 
     //This handles two asynchronous systems:

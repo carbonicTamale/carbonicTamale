@@ -15,7 +15,7 @@
         username: username,
         friend: newFriend
       };
-      $http.post('/api/users/friends', data)
+      return $http.post('/api/users/friends', data)
       .then(function success(data) {
         return data;
       }, function error(err) {
