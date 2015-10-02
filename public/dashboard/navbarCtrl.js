@@ -45,6 +45,12 @@
         controller: 'ToastCtrl',
         controllerAs: 'toast'
       });
-    }
-  }
+    };
+
+    self.setUser = function(user) {
+      console.log('setting user');
+      console.log(user);
+      self.user = user;
+    };
+	}
 })();
