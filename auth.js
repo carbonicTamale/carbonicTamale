@@ -17,7 +17,6 @@ module.exports = function(app) {
     function(accessToken, refreshToken, profile, done) {
       // asynchronous verification, for effect...
       process.nextTick(function () {
-        
         // To keep the example simple, the user's GitHub profile is returned to
         // represent the logged-in user.  In a typical application, you would want
         // to associate the GitHub account with a user record in your database,
@@ -46,6 +45,12 @@ module.exports = function(app) {
   app.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
+      //Upon authentication, create an entry for the user in the database,
+      //first checking to see if that user already exists, 
+      //and if not, then saving the username, name, and email.
+      //
+      //Whether or not the user exists in the database, 
+      //redirect them to the home page. 
       var username = req.user.username;
       var email = req.user.emails[0].value;
       var name = req.user.displayName;

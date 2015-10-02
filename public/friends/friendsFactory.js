@@ -11,10 +11,15 @@
     var onlineFriends = {};
 
     function addFriend (username, newFriend) {
+      //The username and friend username are formatted
+      //according to how the server api will expect them
       var data = {
         username: username,
         friend: newFriend
       };
+      //The promise $http is returned so that our controller
+      //can call the getAndShowFriends function to render 
+      //the newly-updated list of friends.
       return $http.post('/api/users/friends', data)
       .then(function success(data) {
         return data;
