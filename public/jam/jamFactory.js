@@ -9,7 +9,7 @@
 		self.device = null;
 		var device_name = '';
 		var device_names = [];
-		var socket = io('http://104.236.152.154:80');
+		var socket = io('http://localhost:80');
 		var roomName = '2307';
 		var observerCallbacks = [];
 		var key_map = [];

@@ -4,7 +4,7 @@
   angular.module('app')
   .controller('NavbarCtrl', navbarCtrl);
 
-  function navbarCtrl($state, $mdToast) {
+  function navbarCtrl($state, $mdToast, soundFactory) {
     var self = this;
 
     self.user = {
@@ -29,6 +29,10 @@
         icon: 'create'
       }
     ];
+
+    soundFactory.populateSoundFiles().then(function() {
+      console.log('sound files loaded');
+    });
 
     self.isSelected = function(title) {
       if (!$state.current.hasOwnProperty('data'))
