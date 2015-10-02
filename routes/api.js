@@ -51,6 +51,16 @@ router.get('/users/friends', function (req, res, next) {
   }); 
 });
 
+router.get('/events', function (req, res, next) {
+  var username = req.user.username;
+  new Friends().query(function(qb){
+    qb.orderBy('created_at','DESC'); 
+  }).fetch({
+
+  }).then(function(collection){
+    console.log(collection);
+  });
+});
 
 router.get('/jams', function (req, res, next) {
   // TODO : return a unique jam id, add to DB

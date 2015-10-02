@@ -11,6 +11,7 @@ var db = require('./config/db-config');
 var compress = require('compression');
 
 
+
 var routes = require('./routes/index');
 // var api = require('./routes/api');
 
@@ -28,6 +29,9 @@ var sessionMiddleware = session({
   saveUninitialized: false,
   resave: false
 });
+
+app.set('views', path.join(__dirname, 'public'));
+app.set('view engine', 'ejs');
 
 app.use(sessionMiddleware);
 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+  <meta charset="UTF-8">
+  <title>instajam</title>
+  <link rel="stylesheet" href="lib/normalize-css/normalize.css">
+  <link rel="stylesheet" href="lib/angular-material/angular-material.css">
+  <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="lib/angularjs-slider/dist/rzslider.min.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="stylesheets/main.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Righteous|Patua+One|Comfortaa' rel='stylesheet' type='text/css'>
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/angular-animate/angular-animate.min.js"></script>
+  <script src="lib/angular-aria/angular-aria.min.js"></script>
+  <script src="lib/angular-material/angular-material.min.js"></script>
+  <script src="lib/angular-material-icons/angular-material-icons.min.js"></script>
+  <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="lib/angularjs-slider/dist/rzslider.min.js"></script>
+  <script src="lib/howler.js/howler.min.js"></script>
+  <script src="lib/d3/d3.min.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="js/midi.js"></script>
+  <script src="app.js"></script>
+  <script src="dashboard/navbarCtrl.js"></script>
+  <script src="dashboard/dashboardCtrl.js"></script>
+  <script src="jam/jamFactory.js"></script>
+  <script src="jam/soundFactory.js"></script>
+  <script src="jam/jamCtrl.js"></script>
+  <script src="jam/soundBarDirective.js"></script>
+  <script src="jam/playerDirective.js"></script>
+  <script src="friends/friendsCtrl.js"></script>
+  <script src="friends/friendsCtrl.js"></script>
+  <script src="route-config.js"></script>
+</head>
+
+<body ng-controller="NavbarCtrl as nav">
+  <md-content ng-init="nav.setUser(<%= user %>)" layout="column" layout-fill>
+    <md-toolbar layout="row" class="logo-bar">
+      <div class="logo-icon-container">
+        <ng-md-icon icon="my_library_music" style="fill: #FFF" size="50"></ng-md-icon>
+      </div>
+      <div class="brand">instajam</div>
+    </md-toolbar>
+    <md-content layout="row" flex layout-fill>
+      <md-sidenav layout="column" class="sidenav md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+        <md-toolbar>
+          <div layout="column" class="nav-user inset">
+            <img src="jam.jpg" alt="user-image" class="user-icon">
+            <div>{{nav.user.name}}</div>
+            <div>{{nav.user.username}}</div>
+          </div>
+        </md-toolbar>
+        <md-list>
+          <md-item ng-repeat="item in nav.menu">
+            <a ui-sref="{{item.link}}" class="nav-link">
+              <md-item-content layout="row" layout-align="start center" ng-class="{'active': nav.isSelected('{{item.title}}')}">
+                <div class="inset">
+                  <ng-md-icon icon="{{item.icon}}" style="fill: #fff"></ng-md-icon>
+                </div>
+                <div class="inset nav-item">{{item.title}}</div>
+              </md-item-content>
+            </a>
+          </md-item>
+        </md-list>
+      </md-sidenav>
+      <div ui-view></div>
+    </md-content>
+  </md-content>
+</body>
+
+</html>

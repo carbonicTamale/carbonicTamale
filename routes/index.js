@@ -12,13 +12,19 @@ router.get('/', function(req, res, next) {
     res.redirect('/dashboard');
   }
   else {
-    res.sendFile(path.join(config.public, 'index.html'));
+    res.render('index', {user : 'de'});
   }
 });
 
 router.get('/dashboard', verify, function(req, res, next) {
   console.log("VERIFIED, GOING TO DASHBOARD");
-  res.sendFile(path.join(config.public, 'instajam.html'));
+  // res.sendFile(path.join(config.public, 'instajam.html'));
+  var user = {
+    name : req.user.displayName,
+    username : req.user.username
+  };
+
+  res.render('instajam', {user : JSON.stringify(user)});
 });
 
 console.log('api router : ' + apiRouter);
