@@ -6,7 +6,8 @@
         <div class="friend-username">{{friend.username}}</div>
         <div class="friend-email">{{friend.email}}</div>
         <div flex layout="row" layout-align="space-between center">
-          <div ng-model="onlineFriends" ng-show="onlineFriends[{{friend.username}}]">online!</div>
+          <div ng-show="friends.onlineFriends[friend.username]">online!</div>
+          <div ng-hide="friends.onlineFriends[friend.username]">not online</div>
           <md-button class="md-fab" aria-label="Let's jam.">
             JAM
           </md-button>

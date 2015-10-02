@@ -18,7 +18,7 @@
       friendsFactory.getFriends()
       .then(function (friends) {
         self.friends = friends;
-        getOnlineFriends(friends)
+        getOnlineFriends(friends);
       })
       .catch(function (err) {
         console.log('getAndShowFriends error: ', err);
