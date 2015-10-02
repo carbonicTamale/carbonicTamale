@@ -102,6 +102,9 @@
 /*=======================================
 =               FRIENDS                 =
 =======================================*/
+.add-friend {
+  margin: 40px 0 0 40px; }
+
 .friend-container {
   background-color: #03A9F4;
   margin: 20px 0 0 40px;

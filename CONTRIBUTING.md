@@ -143,7 +143,10 @@ Thanks for contributing!
 
 Respect the established visual tone by using this [Material color palette](https://www.materialpalette.com/teal/light-blue).
 
-### Angular
+### Angular & Angular Material
+
+[Angular](https://angularjs.org/)
+[Angular Material](https://material.angularjs.org/latest/#/)
 
 
 ### Icons

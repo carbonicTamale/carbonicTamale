@@ -1,5 +1,12 @@
-<md-content layout="row" ng-controller="FriendsCtrl as friends" layout-fill flex>
-  <div layout="column">
+<md-content layout="row" ng-controller="FriendsCtrl as friends" layout-fill flex flex-wrap>
+  <div layout="column" flex-wrap>
+    <md-form name="addFriendForm">
+      <md-input-container class="add-friend">
+        <label>username</label>
+        <input name="newFriend" ng-model="friends.newFriend" required>
+        <md-button ng-click="friends.addFriend(nav.user.username)">add friend</md-button>
+      </md-input-container>
+    </md-form>
     <div class="friends-panel" ng-repeat="friend in friends.friends">
       <md-whiteframe class="friend-container md-whiteframe-10dp" flex layout="column" layout-align="center start">
         <div class="friend-name">{{friend.name}}</div>

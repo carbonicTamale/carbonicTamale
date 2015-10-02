@@ -10,12 +10,13 @@ var Friends = require('../Collections/Friends');
 var router = express.Router();
 var verify = require('./verify');
 
+//POST /api/users/friends
 router.post('/users/friends', function (req, res, next) {
-  //how are these coming in on the req body? 
-  //This will need to be updated.
-  var user = req.user.username;
+
+  //The request body expects a username and a friend's username.
+  var user = req.body.username;
   var friend = req.body.friend;
-  console.log(user, friend);
+
   //First retrieve the two users by query on their usernames
   Users.query(function (qb) {
     qb.where('username', '=', user)
@@ -23,6 +24,7 @@ router.post('/users/friends', function (req, res, next) {
     .select('id');
   })
   .fetch()
+  //If two records are not retrieved, send a 404.
   .then(function (found) {
     if(found.models.length !== 2) {
       res.sendStatus(404);
@@ -41,9 +43,14 @@ router.post('/users/friends', function (req, res, next) {
 
 });
 
+//GET /api/users/friends
 router.get('/users/friends', function (req, res, next) {
-  var username = 'mracus';
+  //The session already has the user's info stored in each request object's user property.
+  //We'll query the database with the username from that.
+  var username = req.user.username;
 
+  //This query returns all Friend Models where a friendship is defined in the friends table
+  //with the current user. We send those all back in the response.
   new User({ 'username': username })
   .fetch({ withRelated: ['friends'] })
   .then(function(friends) {
