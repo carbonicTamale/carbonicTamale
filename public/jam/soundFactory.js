@@ -4,8 +4,9 @@
   angular.module('app')
     .factory('soundFactory', soundFactory);
 
-  function soundFactory() {
+  function soundFactory($q, $timeout) {
     var services = {
+      populateSoundFiles: populateSoundFiles,
       playSound: playSound,
       stopSound: stopSound,
       nextInstrument: nextInstrument,
@@ -25,8 +26,6 @@
     var icon_names = ['piano', 'bassguitar', 'guitar', 'drums', 'tenorsax', 'trombone'];
     var currentIcon = icon_names[0];
     var selected = 0;
-
-    populateSoundFiles();
 
 
     return services;
@@ -48,12 +47,18 @@
     }
 
     function populateSoundFiles() {
-      populateInstrument('piano', 21, 108, sounds_piano);
-      populateInstrument('bass_classic', 36, 97, sounds_bassguitar);
-      populateInstrument('guitar_electric', 36, 80, sounds_electricguitar);
-      populateInstrument('drums_rock', 36, 57, sounds_drums);
-      populateInstrument('tenorsax', 36, 85, sounds_tenorsax);
-      populateInstrument('trombone', 36, 78, sounds_trombone);
+      return $q(function(resolve, reject) {
+        $timeout(function() {
+          console.log('populating sound files');
+          populateInstrument('piano', 21, 108, sounds_piano);
+          populateInstrument('bass_classic', 36, 97, sounds_bassguitar);
+          populateInstrument('guitar_electric', 36, 80, sounds_electricguitar);
+          populateInstrument('drums_rock', 36, 57, sounds_drums);
+          populateInstrument('tenorsax', 36, 85, sounds_tenorsax);
+          populateInstrument('trombone', 36, 78, sounds_trombone);
+          resolve();
+        });
+      });
     }
 
     function populateInstrument(name, start, end, samples) {
