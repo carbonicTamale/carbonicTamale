@@ -10,6 +10,19 @@
 
     var onlineFriends = {};
 
+    function addFriend (username, newFriend) {
+      var data = {
+        username: username,
+        friend: newFriend
+      };
+      $http.post('/api/users/friends', data)
+      .then(function success(data) {
+        return data;
+      }, function error(err) {
+        console.log('addFriends http request error:', err);
+      });
+    }
+
     function getFriends () {
 
       return $http({
@@ -51,6 +64,7 @@
     var services = {
       getOnlineFriends: getOnlineFriends,
       getFriends: getFriends,
+      addFriend: addFriend
     };
 
     return services;
