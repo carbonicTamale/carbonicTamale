@@ -35,6 +35,8 @@ db.knex.schema.hasTable('friends').then(function(exists) {
     db.knex.schema.createTable('friends', function (friend) {
       friend.integer('user_id').references('user.id');
       friend.integer('friend_id').references('user.id');
+      friend.timestamp('created_at');
+      friend.timestamp('updated_at');
     }).then(function (table) {
       console.log('Created Friends Table', table);
     });
