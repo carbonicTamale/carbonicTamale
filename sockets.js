@@ -24,16 +24,16 @@ module.exports = function(server, sessionMiddleware) {
 
     server.on('error', console.log.bind('error'));
     server.on('listening', console.log.bind('listening'));
-    socket.on('invitation', function (invitee, id) {
+    socket.on('send jam invite', function (invitee, roomName) {
       if(openSockets[invitee]) {
         var invitation = {
-          id: id,
+          roomName: roomName,
           username: user
         };
         //send invitation to user at that socketID
         //send jamID and inviter username
         socket.broadcast.to(openSockets[invitee])
-        .emit('jam invite', invitation);
+        .emit('receive jam invite', invitation);
       }
     });
     socket.on('get-online-friends', function (friends) { 
