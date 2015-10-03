@@ -8,3 +8,7 @@ public/lib
 /db/*.sqlite
 
 config.js
+
+dist/
+
+results/
