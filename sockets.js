@@ -55,12 +55,18 @@ module.exports = function(server, sessionMiddleware) {
         sockets.push(openSockets[jams[jam][i]]);
       }
       socket.broadcast.to(sockets)
-      .emit('user disconnected', user);
+      .emit('user disconnected from jam', user);
     }
 
     socket.on('jam connect', function(jamID) {
+      var sockets = [];
+      for (var i = 0; i < jams[jam].length; i++) {
+        sockets.push(openSockets[jams[jam][i]]);
+      }
       jam = jamID;
       jams[jam].push(user);
+      socket.broadcast.to(sockets)
+      .emit('user connected to jam', user);
     });
 
     socket.on('jam create', function() {
