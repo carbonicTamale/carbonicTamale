@@ -7,6 +7,8 @@
   function navbarCtrl($state, $mdToast, soundFactory) {
     var self = this;
 
+    var socket = io();
+
     self.user = {
       name: 'Marcus Buffett',
       email: 'ilovechicken@gmail.com'
@@ -30,6 +32,19 @@
       }
     ];
 
+    socket.on('jam invite', function(roomName) {
+      $mdToast.show({
+        templateUrl: 'dashboard/toast-invite.html',
+        hideDelay: 0,
+        position: 'bottom right',
+        controller: 'ToastCtrl',
+        controllerAs: 'toast',
+        locals: {
+          roomName: roomName
+        },
+      });
+    });
+
     soundFactory.populateSoundFiles().then(function() {
       console.log('sound files loaded');
     });
@@ -39,16 +54,6 @@
         return false;
       
       return (title === $state.current.data.title);
-    };
-
-    self.showToast = function() {
-      $mdToast.show({
-        templateUrl: 'dashboard/toast-invite.html',
-        hideDelay: 0,
-        position: 'bottom right',
-        controller: 'ToastCtrl',
-        controllerAs: 'toast'
-      });
     };
 
     self.setUser = function(user) {

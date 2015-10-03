@@ -81,10 +81,15 @@
 			plug: plug,
 			plugAll: plugAll,
 			getKeyMap: getKeyMap,
-			registerObserverCallback: registerObserverCallback
+			registerObserverCallback: registerObserverCallback,
+			setRoom: setRoom
 		}
 
 		return services;
+
+		function setRoom(room) {
+			roomName = room;
+		}
 
 		function unplug() {
 			self.device = null;
