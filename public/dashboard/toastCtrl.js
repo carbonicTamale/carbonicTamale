@@ -4,11 +4,9 @@
   angular.module('app')
   .controller('ToastCtrl', toastCtrl);
 
-  function toastCtrl($mdToast, $state, jamFactory, $scope, roomName) {
+  function toastCtrl($mdToast, $state, jamFactory, $scope, username, roomName) {
     var self = this;
-    console.log('this =', this);
-    console.log('$scope =', $scope);
-    console.log('roomName =', roomName);
+    self.username = username;
 
     self.acceptInvite = function() {
       $state.transitionTo('jam');

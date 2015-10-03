@@ -4,7 +4,7 @@
   angular.module('app')
   .controller('NavbarCtrl', navbarCtrl);
 
-  function navbarCtrl($state, $mdToast, soundFactory) {
+  function navbarCtrl($state, $mdToast, soundFactory, jamFactory) {
     var self = this;
 
     var socket = io();
@@ -32,7 +32,7 @@
       }
     ];
 
-    socket.on('jam invite', function(roomName) {
+    socket.on('receive jam invite', function(invitation) {
       $mdToast.show({
         templateUrl: 'dashboard/toast-invite.html',
         hideDelay: 0,
@@ -40,7 +40,8 @@
         controller: 'ToastCtrl',
         controllerAs: 'toast',
         locals: {
-          roomName: roomName
+          username: invitation.username,
+          roomName: invitation.roomName
         },
       });
     });
@@ -57,9 +58,16 @@
     };
 
     self.setUser = function(user) {
-      console.log('setting user');
-      console.log(user);
       self.user = user;
     };
+
+    self.inviteFriend = function(friend) {
+      console.log('friend =', friend);
+      var roomName = '' + Math.floor(Math.random() * 1000);
+      socket.emit('send jam invite', friend, roomName);
+      $state.transitionTo('jam');
+      jamFactory.setRoom(roomName);
+    };
+
 	}
 })();
