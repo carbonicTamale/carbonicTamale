@@ -19,6 +19,7 @@ module.exports = function(server, sessionMiddleware) {
       return;
     }
     var user = session.passport.user.username;
+    var jam = null;
     openSockets[user] = socket.id;
     console.log('A user has connected');
 
@@ -36,6 +37,38 @@ module.exports = function(server, sessionMiddleware) {
         .emit('come jam!', invitation);
       }
     });
+
+    socket.on('disconnect', function() {
+      delete openSockets[user];
+      jamDisconnect();
+    });
+
+    socket.on('jam disconnect', jamDisconnect);
+
+    function jamDisconnect() {
+      var sockets = [];
+      for (var i = 0; i < jams[jam].length; i++) {
+        if (jams[jam][i] === user) {
+          jams[jam].splice(i, 1);
+          i--;
+        }
+        sockets.push(openSockets[jams[jam][i]]);
+      }
+      socket.broadcast.to(sockets)
+      .emit('user disconnected', user);
+    }
+
+    socket.on('jam connect', function(jamID) {
+      jam = jamID;
+      jams[jam].push(user);
+    });
+
+    socket.on('jam create', function() {
+      jam = Math.floor(Math.random()*10000);
+      jams.jamID = [user];
+      socket.emit('jam created', jam);
+    });
+
     socket.on('get-online-friends', function (friends) { 
       console.log(friends);
       var onlineFriends = [];
