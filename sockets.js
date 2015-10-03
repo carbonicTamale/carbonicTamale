@@ -33,7 +33,7 @@ module.exports = function(server, sessionMiddleware) {
         //send invitation to user at that socketID
         //send jamID and inviter username
         socket.broadcast.to(openSockets[invitee])
-        .emit('come jam!', invitation);
+        .emit('jam invite', invitation);
       }
     });
     socket.on('get-online-friends', function (friends) { 
