@@ -4,7 +4,7 @@
 	angular.module('app')
 	.controller('DashboardCtrl', dashboardCtrl);
 
-	function dashboardCtrl() {
+	function dashboardCtrl($http) {
 		var self = this;
 
     self.events = [
@@ -29,6 +29,16 @@
         friend: 'Matthew',
       },
     ];
+
+    self.updateProfile = function() {
+      console.log(self.newProfileText);
+      return $http.post('/api/users/profile', {profile : self.newProfileText})
+      .then(function success(data) {
+        console.log('success!');
+      }, function error(err) {
+        console.log('profile update error!', err);
+      });
+    };
     // used for invitations later
     var socket = io();
 	}
