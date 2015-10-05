@@ -4,9 +4,10 @@
   angular.module('app')
   .controller('JamCtrl', jamCtrl);
 
-  function jamCtrl($scope, Devices, jamFactory, soundFactory) {
+  function jamCtrl($scope, Devices, jamFactory, soundFactory, playerFactory) {
     var self = this;
     var socket = playerFactory.getSocket();
+    var solo = false;
 
     self.devices = [];
     self.volumeSlider = {
@@ -22,7 +23,7 @@
         username: 'patrickstar',
         name: 'Patrick Star',
         instrument: 'piano',
-        volume: 0.5
+        volume: 50
       }
     ];
 
@@ -35,6 +36,7 @@
       if (jamFactory.inJam())
         return;
 
+      solo = true;
       jamFactory.setJamState(true);
       jamFactory.setJamRoom(Math.floor(Math.random()*10000));
     }
@@ -45,7 +47,11 @@
         console.log('room updated');
         $scope.$apply();
       });
-      socket.emit('jam connect', jamFactory.getJamRoom());
+
+      if (!solo)
+        socket.emit('jam connect', jamFactory.getJamRoom());
+      else
+        socket.emit('jam create', jamFactory.getJamRoom());
     }
 
     function registerKeyMap() {
