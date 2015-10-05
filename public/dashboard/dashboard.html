@@ -1,4 +1,4 @@
-<md-content layout="row" layout-fill flex>
+<md-content ng-init="dashboard.newProfileText = nav.user.profile" layout="row" layout-fill flex>
   <div layout="column">
     <md-card class="activity-feed md-padding">
       <h2>Activity Feed</h2>
@@ -10,6 +10,20 @@
         You became friends with {{event.friend}}
       </div>
       </md-card>
+    </md-content>
+  </div>
+  <div layout="column">
+    <md-card class="profile md-padding">
+      <h2>Profile</h2>
+      <div ng-show="nav.user.profile === null">
+        <textarea rows="8" cols="50">You have no profile, click the button below to make one.</textarea>
+      </div>
+      <div ng-hide="nav.user.profile === null">
+        <textarea ng-model='dashboard.newProfileText' rows="8" cols="50">{{nav.user.profile}}</textarea>
+      </div>
+      <button ng-click="dashboard.updateProfile()" id="submit-profile">
+        Change profile!
+      </button>
     </md-content>
   </div>
 </md-content>
