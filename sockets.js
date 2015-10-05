@@ -4,7 +4,18 @@ module.exports = function(server, sessionMiddleware) {
 
   var openSockets = {};
   var jams = {
-    test: { id: 'http://google.com', username: 'mdboop' }
+    '101': [
+        {
+          name: 'Chris',
+          instrument: 'piano',
+          volume: 0.7
+        },
+        {
+          name: 'Blaine',
+          instrument: 'drums',
+          volume: 0.45
+        }
+      ]
   };
 
   var io = socketio.listen(server);
@@ -18,64 +29,86 @@ module.exports = function(server, sessionMiddleware) {
     if (session.passport === undefined) {
       return;
     }
-    var user = session.passport.user.username;
-    var jam = null;
+    var user = session.passport.user;
+    var name = user.name;
+    var username = user.username;
+    var email = user.email;
+
+    var player = {
+      name: name,
+      instrument: 'piano',
+      volume: 0.5
+    };
+
+    var currentJam = null;
     openSockets[user] = socket.id;
     console.log('A user has connected');
 
     server.on('error', console.log.bind('error'));
     server.on('listening', console.log.bind('listening'));
-    socket.on('send jam invite', function (invitee, roomName) {
+
+    socket.on('disconnect', disconnect);
+    socket.on('send jam invite', sendJamInvite);
+    socket.on('jam disconnect', jamDisconnect);
+    socket.on('jam connect', jamConnect);
+    socket.on('jam create', jamCreate);
+    socket.on('change instrument', changeInstrument);
+    socket.on('get-online-friends', getFriends);
+
+    function disconnect() {
+      delete openSockets[user];
+      jamDisconnect();
+    }
+
+    function sendJamInvite(invitee, roomName) {
       if(openSockets[invitee]) {
         var invitation = {
           roomName: roomName,
           username: user
         };
-        //send invitation to user at that socketID
-        //send jamID and inviter username
         socket.broadcast.to(openSockets[invitee])
         .emit('receive jam invite', invitation);
       }
-    });
-
-    socket.on('disconnect', function() {
-      delete openSockets[user];
-      jamDisconnect();
-    });
-
-    socket.on('jam disconnect', jamDisconnect);
-
-    function jamDisconnect() {
-      var sockets = [];
-      for (var i = 0; i < jams[jam].length; i++) {
-        if (jams[jam][i] === user) {
-          jams[jam].splice(i, 1);
-          i--;
-        }
-        sockets.push(openSockets[jams[jam][i]]);
-      }
-      socket.broadcast.to(sockets)
-      .emit('user disconnected from jam', user);
     }
 
-    socket.on('jam connect', function(jamID) {
-      var sockets = [];
-      for (var i = 0; i < jams[jam].length; i++) {
-        sockets.push(openSockets[jams[jam][i]]);
+    function jamCreate() {
+      currentJam = Math.floor(Math.random()*10000);
+      jams[currentJam] = [player];
+    }
+
+    function jamConnect(jamID) {
+      currentJam = jamID;
+      jams[currentJam].push(player);
+
+      updateJamRoom();
+    }
+
+    function jamDisconnect() {
+      for (var i=0; i < jams[currentJam].length; i++) {
+        if (jams[currentJam][i].name === name) {
+          jams[currentJam].splice(i, 1);
+          break;
+        }
       }
-      jam = jamID;
-      jams[jam].push(user);
-      socket.broadcast.to(sockets)
-      .emit('user connected to jam', user);
-    });
 
-    socket.on('jam create', function() {
-      jam = Math.floor(Math.random()*10000);
-      jams.jamID = [user];
-      socket.emit('jam created', jam);
-    });
+      updateJamRoom();
+    }
 
-    socket.on('get-online-friends', function (friends) { 
+
+    function changeInstrument(newInstrument) {
+      player.instrument = newInstrument;
+
+      for (var i=0; i<jams[currentJam].length; i++) {
+        if (jams[currentJam][i].name === name) {
+          jams[currentJam][i].instrument = newInstrument;
+          break;
+        }
+      }
+
+      updateJamRoom();
+    }
+
+    function getFriends(friends) {
       console.log(friends);
       var onlineFriends = [];
       for(var i = 0; i < friends.length; i++) {
@@ -85,7 +118,19 @@ module.exports = function(server, sessionMiddleware) {
         }
       }
       socket.emit('send-online-friends', onlineFriends);
-    });
+    }
+
+    // tell everyone to update their display
+    function updateJamRoom(currentJam) {
+      var sockets = [];
+
+      for (var i=0; i<jams[currentJam].length; i++) {
+        sockets.push(jams[currentJam][i]);
+      }
+
+      socket.broadcast.to(sockets)
+      .emit('update room', jams[currentJam]);
+    }
 
   });
 

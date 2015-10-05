@@ -10,7 +10,10 @@
 
     self.acceptInvite = function() {
       $state.transitionTo('jam');
+      jamFactory.setJamState(true);
       jamFactory.setRoom(roomName);
+
+      socket.emit('jam connect', roomName);
       $mdToast.hide();
     }
     self.closeToast = function() {
