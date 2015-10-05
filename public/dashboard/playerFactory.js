@@ -13,16 +13,26 @@
       getProfile: getProfile,
       setProfile: setProfile,
       setInstrument: setInstrument,
+      getVolume: getVolume,
       setVolume: setVolume,
       getPlayer: getPlayer,
-      getSocket: getSocket
+      getSocket: getSocket,
+      getJamRoom: getJamRoom,
+      setJamRoom: setJamRoom,
+      setJamState: setJamState,
+      inJam: inJam,
+      connectToRoom: connectToRoom,
+      disconnect: disconnect
     };
 
     var socket = io();
 
-    var name, username, email, instrument, volume, profile;
+    var name, username, email, instrument, volume, profile, jamRoom;
+    var inJam = false;
+    var jamState = 'solo';
 
     return services;
+
 
     function getSocket() {
       return socket;
@@ -59,10 +69,16 @@
 
     function setInstrument(newInstrument) {
       instrument = newInstrument;
+      socket.emit('change instrument', instrument);
+    }
+
+    function getVolume() {
+      return volume;
     }
 
     function setVolume(newVolume) {
       volume = newVolume;
+      socket.emit('change volume', volume);
     }
 
     function getPlayer() {
@@ -73,6 +89,48 @@
         volume: volume
       };
     }
+
+    function getJamRoom() {
+      return jamRoom;
+    }
+
+    function setJamRoom(roomNum) {
+      jamRoom = roomNum;
+    }
+
+    function setJamState(state) {
+      jamState = state;
+    }
+
+    function inJam() {
+      return jamState;
+    }
+
+    function connectToRoom() {
+      if (!inJam) {
+        jamState = 'solo';
+        inJam = true;
+      }
+
+      if (jamState === 'multiplayer')
+        return;
+
+      if (jamState === 'solo') {
+        socket.emit('jam create', getPlayer());
+      }
+      else if (jamState === 'join in progress') {
+        socket.emit('jam connect', getPlayer());
+        inJam = true;
+        jamState = 'multiplayer';
+      }
+    }
+
+    function disconnect() {
+      inJam = false;
+      jamState = 'solo';
+      jamRoom = '';
+    }
+
   }
 
 })();

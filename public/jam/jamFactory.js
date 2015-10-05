@@ -4,16 +4,12 @@
 	angular.module('app')
 	.factory('jamFactory', jamFactory);
 
-	function jamFactory(soundFactory, $document) {
+	function jamFactory(soundFactory, $document, playerFactory) {
 		var services = {
 			plug: plug,
 			plugAll: plugAll,
 			getKeyMap: getKeyMap,
 			registerObserverCallback: registerObserverCallback,
-			setJamState: setJamState,
-			inJam: inJam,
-			getJamRoom: getJamRoom,
-			setJamRoom: setJamRoom
 		};
 		
 		var self = this;
@@ -24,8 +20,6 @@
 		var observerCallbacks = [];
 		var key_map = [];
 		var username = '';
-		var in_jam = false;
-		var roomName = '2307';
 
 		setSockets();
 		fillKeyMap();
@@ -33,18 +27,14 @@
 
 		return services;
 
-		function getJamRoom() {
-			return roomName;
-		}
-
 		function setSockets() {
-			socket.on(roomName + ' event', function(data) {
+			socket.on(playerFactory.getJamRoom() + ' event', function(data) {
 				console.log('received data', data);
 
 				if (data.down)
-					soundFactory.playSound(data.key_num, data.key_vel);
+					soundFactory.playSound(data.key_num, data.key_vel, data.instrument);
 				else
-					soundFactory.stopSound(data.key_num);
+					soundFactory.stopSound(data.key_num, data.instrument);
 			});
 		}
 
@@ -97,17 +87,6 @@
 			});
 		}
 
-		function setJamRoom(roomNum) {
-			roomName = roomNum;
-		}
-
-		function setJamState(state) {
-			in_jam = state;
-		}
-
-		function inJam() {
-			return in_jam;
-		}
 
 		function unplug() {
 			self.device = null;
@@ -167,13 +146,14 @@
 
 		function keyDown(key_num, key_vel) {
 			var data = {
-				username: username,
+				username: playerFactory.getUsername(),
 				key_num: key_num,
 				key_vel: key_vel,
-				down: true
+				down: true,
+				instrument: playerFactory.getInstrument()
 			}
 			socket.emit('note event', data, roomName);
-			soundFactory.playSound(key_num, key_vel);
+			soundFactory.playSound(key_num, key_vel, playerFactory.getInstrument());
 			if (key_num-23 >= 0) key_map[key_num-23] = key_vel/4+1;
 			if (key_num-22 >= 0) key_map[key_num-22] = key_vel/2+1;
 			if (key_num-20 <= 97) key_map[key_num-20] = key_vel/2+1;
@@ -184,13 +164,14 @@
 
 		function keyUp(key_num, key_vel) {
 			var data = {
-				username: username,
+				username: playerFactory.getUsername(),
 				key_num: key_num,
 				key_vel: key_vel,
-				down: false
+				down: false,
+				instrument: playerFactory.getInstrument()
 			}
 			socket.emit('note event', data, roomName);
-			soundFactory.stopSound(key_num);
+			soundFactory.stopSound(key_num, playerFactory.getInstrument());
 			if (key_num-23 >= 0) key_map[key_num-23] = key_vel/4+1;
 			if (key_num-22 >= 0) key_map[key_num-22] = key_vel/2+1;
 			if (key_num-20 <= 97) key_map[key_num-20] = key_vel/2+1;

@@ -4,15 +4,14 @@
   angular.module('app')
   .controller('ToastCtrl', toastCtrl);
 
-  function toastCtrl($mdToast, $state, jamFactory, $scope, name, roomName, socket) {
+  function toastCtrl($mdToast, $state, playerFactory, $scope, name, roomName, socket) {
     var self = this;
     self.name = name;
 
     self.acceptInvite = function() {
       $state.transitionTo('jam');
-      jamFactory.setJamState(true);
-      jamFactory.setJamRoom(roomName);
-
+      playerFactory.setJamRoom(roomName);
+      playerFactory.setJamState('join in progress');
       console.log('accepted jam invite');
       $mdToast.hide();
     }
