@@ -35,13 +35,22 @@ module.exports = function(server, sessionMiddleware) {
     console.log('name =', name);
     var username = user.username;
     var email = user.email;
+    var key_map = [];
 
+    fillKeyMap();
     var player = {
       username: username,
       name: name,
       instrument: 'piano',
-      volume: 50
+      volume: 50,
+      key_map: key_map
     };
+
+    function fillKeyMap() {
+      for (var i=0; i<=97; i++) {
+        key_map.push(1);
+      }
+    }
 
     var currentJam = null;
     openSockets[username] = socket.id;
