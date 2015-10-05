@@ -37,10 +37,10 @@ module.exports = function(server, sessionMiddleware) {
     var email = user.email;
 
     var player = {
-      name: name,
       username: username,
+      name: name,
       instrument: 'piano',
-      volume: 0.5
+      volume: 50
     };
 
     var currentJam = null;
@@ -58,6 +58,7 @@ module.exports = function(server, sessionMiddleware) {
     socket.on('jam connect', jamConnect);
     socket.on('jam create', jamCreate);
     socket.on('change instrument', changeInstrument);
+    socket.on('change volume', changeVolume);
     socket.on('get online friends', getFriends);
 
     function disconnect() {
@@ -95,7 +96,7 @@ module.exports = function(server, sessionMiddleware) {
 
     function jamDisconnect() {
       for (var i=0; i < jams[currentJam].length; i++) {
-        if (jams[currentJam][i].name === name) {
+        if (jams[currentJam][i].username === username) {
           jams[currentJam].splice(i, 1);
           break;
         }
@@ -109,8 +110,21 @@ module.exports = function(server, sessionMiddleware) {
       player.instrument = newInstrument;
 
       for (var i=0; i<jams[currentJam].length; i++) {
-        if (jams[currentJam][i].name === name) {
+        if (jams[currentJam][i].username === username) {
           jams[currentJam][i].instrument = newInstrument;
+          break;
+        }
+      }
+
+      updateJamRoom();
+    }
+
+    function changeVolume(newVolume) {
+      player.volume = newVolume;
+
+      for (var i=0; i<jams[currentJam].length; i++) {
+        if (jams[currentJam][i].username === username) {
+          jams[currentJam][i].volume = newVolume;
           break;
         }
       }

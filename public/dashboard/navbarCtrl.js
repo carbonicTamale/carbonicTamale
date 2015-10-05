@@ -70,8 +70,8 @@
       var roomName = '' + Math.floor(Math.random() * 1000);
       socket.emit('jam create', roomName);
       socket.emit('send jam invite', friend, roomName);
-      jamFactory.setJamState(true);
-      jamFactory.setJamRoom(roomName);
+      playerFactory.setJamState('multiplayer');
+      playerFactory.setJamRoom(roomName);
 
       $state.transitionTo('jam');
     };

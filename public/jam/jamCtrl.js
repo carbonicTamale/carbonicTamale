@@ -7,14 +7,8 @@
   function jamCtrl($scope, Devices, jamFactory, soundFactory, playerFactory) {
     var self = this;
     var socket = playerFactory.getSocket();
-    var solo = false;
 
     self.devices = [];
-    self.volumeSlider = {
-      floor: 0,
-      ceil: 100,
-      value: 50
-    };
 
     self.key_map = jamFactory.getKeyMap();
 
@@ -27,19 +21,9 @@
       }
     ];
 
-    checkAlone();
     connectDevices();
     setSockets();
     registerKeyMap();
-
-    function checkAlone() {
-      if (jamFactory.inJam())
-        return;
-
-      solo = true;
-      jamFactory.setJamState(true);
-      jamFactory.setJamRoom(Math.floor(Math.random()*10000));
-    }
 
     function setSockets() {
       socket.on('update room', function(players) {
@@ -48,10 +32,7 @@
         $scope.$apply();
       });
 
-      if (!solo)
-        socket.emit('jam connect', jamFactory.getJamRoom());
-      else
-        socket.emit('jam create', jamFactory.getJamRoom());
+      playerFactory.connectToRoom();
     }
 
     function registerKeyMap() {
@@ -97,10 +78,24 @@
       soundFactory.prevInstrument();
     };
 
+    // $scope.$watch(function() {
+    //   return soundFactory.getInstrumentIcon();
+    // }, function() {
+    //   self.users[0].instrument = soundFactory.getInstrumentIcon();
+    // });
+
     $scope.$watch(function() {
-      return soundFactory.getInstrumentIcon();
+      return self.users;
     }, function() {
-      self.users[0].instrument = soundFactory.getInstrumentIcon();
-    })
+      for (var i=0; i<self.users.length; i++) {
+        if (self.users[i].username === playerFactory.getUsername()) {
+          if (self.users[i].volume === playerFactory.getVolume())
+            return;
+
+          playerFactory.setVolume(self.users[i].volume);
+          return;
+        }
+      }
+    }, true);
   }
 })();
