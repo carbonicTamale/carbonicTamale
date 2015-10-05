@@ -8,28 +8,20 @@
 		var self = this;
     self.player = playerFactory;
 
-    self.events = [
-      {
-        type: 'friend',
-        friend: 'Chris',
-      },
-      {
-        type: 'jam',
-        jammers: [
-          'Chris',
-          'Matthew',
-          'Blaine'
-        ],
-      },
-      {
-        type: 'friend',
-        friend: 'Blaine',
-      },
-      {
-        type: 'friend',
-        friend: 'Matthew',
-      },
-    ];
+    self.events = [];
+
+    $http.get('/api/events')
+    .then(function(data) {
+      // console.log(data.data);
+      console.dir(data.data);
+      var friends = data.data.friends;
+      for (var i = 0; i < friends.length; i++) {
+        self.events.push({
+          friend : friends[i].name,
+          type : 'friend'
+        });
+      }
+    });
 
     $scope.confirm = function() {
       return $http.post('/api/users/profile', {profile : $scope.profile})
