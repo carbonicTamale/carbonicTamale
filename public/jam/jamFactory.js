@@ -26,7 +26,7 @@
 		var key_map = [];
 		var username = '';
 		var in_jam = false;
-		var jam_room = '2307';
+		var roomName = '2307';
 
 		setSockets();
 		fillKeyMap();
@@ -35,11 +35,11 @@
 		return services;
 
 		function getJamRoom() {
-			return jam_room;
+			return roomName;
 		}
 
 		function setSockets() {
-			socket.on(jam_room + ' event', function(data) {
+			socket.on(roomName + ' event', function(data) {
 				console.log('received data', data);
 				var key_num = data[0];
 				var key_vel = data[1];
@@ -102,7 +102,7 @@
 		}
 
 		function setJamRoom(roomNum) {
-			jam_room = roomNum;
+			roomName = roomNum;
 		}
 
 		function setJamState(state) {

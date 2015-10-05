@@ -19,7 +19,7 @@
 
     self.users = [
       {
-        name: 'Chris Yung',
+        name: 'Patrick Star',
         instrument: 'piano',
         volume: 0.5
       }
