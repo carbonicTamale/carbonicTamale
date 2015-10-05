@@ -7,7 +7,7 @@ var User = db.Model.extend({
   friends: function () {
     //In addition to creating the many-to-many relationship, we specify the join table as 'friends',
     //and also specify the appropriate keys to use.
-    return this.belongsToMany(User, 'friends', 'user_id', 'friend_id');
+    return this.belongsToMany(User, 'friends', 'user_id', 'friend_id').withPivot('created_at', 'updated_at');
   }
 });
 
