@@ -24,6 +24,8 @@ db.knex.schema.hasTable('users').then(function(exists) {
       user.string('username', 255);
       user.string('name', 255);
       user.string('email', 255);
+      user.string('profile', 1000);
+      user.string('last_instrument', 255);
     }).then(function (table) {
       console.log('Created Users Table', table);
     });
