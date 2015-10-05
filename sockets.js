@@ -41,7 +41,7 @@ module.exports = function(server, sessionMiddleware) {
     };
 
     var currentJam = null;
-    openSockets[user] = socket.id;
+    openSockets[username] = socket.id;
     console.log('A user has connected');
 
     server.on('error', console.log.bind('error'));
@@ -57,10 +57,11 @@ module.exports = function(server, sessionMiddleware) {
 
     function disconnect() {
       delete openSockets[user];
-      jamDisconnect();
+      // jamDisconnect();
     }
 
     function sendJamInvite(invitee, roomName) {
+      console.log('openSockets[invitee] = ', openSockets[invitee]);
       if(openSockets[invitee]) {
         var invitation = {
           roomName: roomName,
