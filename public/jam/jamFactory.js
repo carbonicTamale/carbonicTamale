@@ -9,7 +9,8 @@
 			setSockets: setSockets,
 			plug: plug,
 			plugAll: plugAll,
-			getKeyMap: getKeyMap,
+			getKeyMaps: getKeyMaps,
+			addKeyMaps: addKeyMaps,
 			registerObserverCallback: registerObserverCallback,
 		};
 		
@@ -19,8 +20,9 @@
 		var device_names = [];
 		var socket = io('http://104.236.152.154:8080');
 		var observerCallbacks = [];
-		var key_map = [];
-		var username = '';
+		var key_maps = {};
+		var username = playerFactory.getUsername();
+		console.log('username =', username);
 
 		setSockets();
 		fillKeyMap();
@@ -32,11 +34,40 @@
 			socket.on(playerFactory.getJamRoom() + ' event', function(data) {
 				console.log('received data', data);
 
+				updateKeyMap(data);
+
 				if (data.down)
 					soundFactory.playSound(data.key_num, data.key_vel, data.instrument);
 				else
 					soundFactory.stopSound(data.key_num, data.instrument);
 			});
+		}
+
+		function updateKeyMap(data) {
+			var key_num = data.key_num;
+			var key_vel = data.key_vel;
+
+			if (key_num-23 >= 0) key_maps[data.username][key_num-23] = key_vel/4+1;
+			if (key_num-22 >= 0) key_maps[data.username][key_num-22] = key_vel/2+1;
+			if (key_num-20 <= 97) key_maps[data.username][key_num-20] = key_vel/2+1;
+			if (key_num-19 <= 97) key_maps[data.username][key_num-19] = key_vel/4+1;
+			key_maps[data.username][key_num-21] = key_vel+1;
+			notifyObservers();
+		}
+
+		function addKeyMaps(names) {
+			for (var i=0; i<names.length; i++) {
+				if (!key_maps.hasOwnProperty(names[i]))
+					key_maps[names[i]] = createKeyMap();
+			}
+		}
+
+		function createKeyMap() {
+			var key_map = [];
+			for (var i=0; i<=97; i++) {
+				key_map.push(1);
+			}
+			return key_map;
 		}
 
 		function setKeyboardBindings() {
@@ -111,13 +142,14 @@
 		}
 
 		function fillKeyMap() {
+			key_maps[username] = [];
 			for (var i=0; i<=97; i++) {
-				key_map.push(1);
+				key_maps[username].push(1);
 			}
 		}
 
-		function getKeyMap() {
-			return key_map;
+		function getKeyMaps() {
+			return key_maps;
 		}
 
 		function onmidimessage(e) {
@@ -155,11 +187,11 @@
 			}
 			socket.emit('note event', data, playerFactory.getJamRoom());
 			soundFactory.playSound(key_num, key_vel, playerFactory.getInstrument());
-			if (key_num-23 >= 0) key_map[key_num-23] = key_vel/4+1;
-			if (key_num-22 >= 0) key_map[key_num-22] = key_vel/2+1;
-			if (key_num-20 <= 97) key_map[key_num-20] = key_vel/2+1;
-			if (key_num-19 <= 97) key_map[key_num-19] = key_vel/4+1;
-			key_map[key_num-21] = key_vel+1;
+			if (key_num-23 >= 0) key_maps[username][key_num-23] = key_vel/4+1;
+			if (key_num-22 >= 0) key_maps[username][key_num-22] = key_vel/2+1;
+			if (key_num-20 <= 97) key_maps[username][key_num-20] = key_vel/2+1;
+			if (key_num-19 <= 97) key_maps[username][key_num-19] = key_vel/4+1;
+			key_maps[username][key_num-21] = key_vel+1;
 			notifyObservers();
 		}
 
@@ -173,11 +205,11 @@
 			}
 			socket.emit('note event', data, playerFactory.getJamRoom());
 			soundFactory.stopSound(key_num, playerFactory.getInstrument());
-			if (key_num-23 >= 0) key_map[key_num-23] = key_vel/4+1;
-			if (key_num-22 >= 0) key_map[key_num-22] = key_vel/2+1;
-			if (key_num-20 <= 97) key_map[key_num-20] = key_vel/2+1;
-			if (key_num-19 <= 97) key_map[key_num-19] = key_vel/4+1;
-			key_map[key_num-21] = key_vel+1;
+			if (key_num-23 >= 0) key_maps[username][key_num-23] = key_vel/4+1;
+			if (key_num-22 >= 0) key_maps[username][key_num-22] = key_vel/2+1;
+			if (key_num-20 <= 97) key_maps[username][key_num-20] = key_vel/2+1;
+			if (key_num-19 <= 97) key_maps[username][key_num-19] = key_vel/4+1;
+			key_maps[username][key_num-21] = key_vel+1;
 			notifyObservers();
 		}
 

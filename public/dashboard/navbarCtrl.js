@@ -4,7 +4,7 @@
   angular.module('app')
   .controller('NavbarCtrl', navbarCtrl);
 
-  function navbarCtrl($state, $mdToast, soundFactory, jamFactory, playerFactory) {
+  function navbarCtrl($state, $mdToast, soundFactory, playerFactory) {
     var self = this;
 
     var socket = playerFactory.getSocket();

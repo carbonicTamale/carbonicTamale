@@ -10,7 +10,7 @@
 
     self.devices = [];
 
-    self.key_map = jamFactory.getKeyMap();
+    self.key_maps = jamFactory.getKeyMaps();
 
     self.users = [
       {
@@ -27,6 +27,11 @@
 
     function setSockets() {
       socket.on('update room', function(players) {
+        var player_names = players.map(function(player) {
+          return player.username;
+        });
+        console.log('player_names =', player_names);
+        jamFactory.addKeyMaps(player_names);
         self.users = players;
         console.log('room updated');
         console.log('self.users =', self.users);
@@ -39,7 +44,7 @@
 
     function registerKeyMap() {
       var updateKeyMap = function() {
-        self.key_map = jamFactory.getKeyMap();
+        self.key_maps = jamFactory.getKeyMaps();
         $scope.$apply();
       };
 
@@ -80,9 +85,11 @@
       soundFactory.prevInstrument();
     };
 
-    self.updateVolume = function(username, volume) {
+    self.updateVolume = function(username, volume, $index) {
       if (username === playerFactory.getUsername())
         playerFactory.setVolume(volume);
+
+      console.log('$index =', $index);
     }
     
   }

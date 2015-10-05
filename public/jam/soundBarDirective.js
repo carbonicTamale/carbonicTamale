@@ -29,6 +29,7 @@
       render_initial();
 
       scope.$watch('key_map', function() {
+        console.log('key_map changed');
         render();
       }, true);
 
