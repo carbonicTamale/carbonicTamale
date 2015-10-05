@@ -10,6 +10,23 @@ var Friends = require('../Collections/Friends');
 var router = express.Router();
 var verify = require('./verify');
 
+router.get('/users', function (req, res, next) {
+  Users.fetch()
+  .then(function(found) {
+    res.send(formatUsers(found.models));
+  });
+});
+
+function formatUsers (users) {
+  var formattedUsers = [];
+  var username;
+  for(var i = 0; i < users.length; i++) {
+    username = users[i].get('username');
+    formattedUsers.push(username);
+  }
+  return formattedUsers;
+}
+ 
 //POST /api/users/friends
 router.post('/users/friends', function (req, res, next) {
 
