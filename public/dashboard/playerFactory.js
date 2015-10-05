@@ -12,6 +12,7 @@
       getEmail: getEmail,
       getProfile: getProfile,
       setProfile: setProfile,
+      getInstrument: getInstrument,
       setInstrument: setInstrument,
       getVolume: getVolume,
       setVolume: setVolume,
@@ -67,6 +68,10 @@
       return email;
     }
 
+    function getInstrument() {
+      return instrument;
+    }
+
     function setInstrument(newInstrument) {
       instrument = newInstrument;
       socket.emit('change instrument', instrument);
@@ -96,6 +101,7 @@
 
     function setJamRoom(roomNum) {
       jamRoom = roomNum;
+      inJam = true;
     }
 
     function setJamState(state) {
@@ -116,11 +122,14 @@
         return;
 
       if (jamState === 'solo') {
-        socket.emit('jam create', getPlayer());
+        socket.emit('jam create', jamRoom);
       }
       else if (jamState === 'join in progress') {
-        socket.emit('jam connect', getPlayer());
-        inJam = true;
+        socket.emit('jam connect', jamRoom);
+        jamState = 'multiplayer';
+      }
+      else if (jamState === 'host') {
+        socket.emit('jam create', jamRoom);
         jamState = 'multiplayer';
       }
     }

@@ -6,6 +6,7 @@
 
 	function jamFactory(soundFactory, $document, playerFactory) {
 		var services = {
+			setSockets: setSockets,
 			plug: plug,
 			plugAll: plugAll,
 			getKeyMap: getKeyMap,
@@ -16,7 +17,7 @@
 		self.device = null;
 		var device_name = '';
 		var device_names = [];
-		var socket = io('http://localhost:80');
+		var socket = io('http://104.236.152.154:8080');
 		var observerCallbacks = [];
 		var key_map = [];
 		var username = '';
@@ -152,7 +153,7 @@
 				down: true,
 				instrument: playerFactory.getInstrument()
 			}
-			socket.emit('note event', data, roomName);
+			socket.emit('note event', data, playerFactory.getJamRoom());
 			soundFactory.playSound(key_num, key_vel, playerFactory.getInstrument());
 			if (key_num-23 >= 0) key_map[key_num-23] = key_vel/4+1;
 			if (key_num-22 >= 0) key_map[key_num-22] = key_vel/2+1;
@@ -170,7 +171,7 @@
 				down: false,
 				instrument: playerFactory.getInstrument()
 			}
-			socket.emit('note event', data, roomName);
+			socket.emit('note event', data, playerFactory.getJamRoom());
 			soundFactory.stopSound(key_num, playerFactory.getInstrument());
 			if (key_num-23 >= 0) key_map[key_num-23] = key_vel/4+1;
 			if (key_num-22 >= 0) key_map[key_num-22] = key_vel/2+1;

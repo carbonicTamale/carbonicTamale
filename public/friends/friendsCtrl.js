@@ -14,6 +14,7 @@
     self.addFriendError = false;
     self.allUsers = [];
 
+    initialize();
 
     //Fetch all users in the database in order to use in the autocomplete for the add friend form.
     function getAllUsers () {
@@ -21,6 +22,8 @@
         self.allUsers = users;
       });
     }
+    setListeners();
+    updateFriends();
 
     //Write new friendship to the database, if there is an error on the server side,
     //then display the warning message to the user.
@@ -56,7 +59,5 @@
       setListeners();
     }
 
-    initialize();
-
-	}
+    }
 })();

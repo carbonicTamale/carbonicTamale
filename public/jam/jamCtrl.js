@@ -29,10 +29,12 @@
       socket.on('update room', function(players) {
         self.users = players;
         console.log('room updated');
+        console.log('self.users =', self.users);
         $scope.$apply();
       });
 
       playerFactory.connectToRoom();
+      jamFactory.setSockets();
     }
 
     function registerKeyMap() {

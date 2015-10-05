@@ -102,12 +102,12 @@
     }
 
     function instrumentToIndex(inst) {
-      if (inst === 'piano') selected = 0;
-      else if (inst === 'bassguitar') selected = 1;
-      else if (inst === 'guitar') selected = 2;
-      else if (inst === 'drums') selected = 3;
-      else if (inst === 'tenorsax') selected = 4;
-      else if (inst === 'trombone') selected = 5;
+      if (inst === 'piano') return 0;
+      else if (inst === 'bassguitar') return 1;
+      else if (inst === 'guitar') return 2;
+      else if (inst === 'drums') return 3;
+      else if (inst === 'tenorsax') return 4;
+      else if (inst === 'trombone') return 5;
     }
   }
 

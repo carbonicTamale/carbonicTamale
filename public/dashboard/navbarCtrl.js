@@ -68,9 +68,8 @@
     self.inviteFriend = function(friend) {
       console.log('friend =', friend);
       var roomName = '' + Math.floor(Math.random() * 1000);
-      socket.emit('jam create', roomName);
       socket.emit('send jam invite', friend, roomName);
-      playerFactory.setJamState('multiplayer');
+      playerFactory.setJamState('host');
       playerFactory.setJamRoom(roomName);
 
       $state.transitionTo('jam');
