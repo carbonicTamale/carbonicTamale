@@ -28,6 +28,7 @@ router.post('/users/friends', function (req, res, next) {
   .then(function (found) {
     if(found.models.length !== 2) {
       res.sendStatus(404);
+      return;
     }
     //Grab their IDs from the retrieved models.
     userID = found.models[0].id;
@@ -51,7 +52,7 @@ router.post('/users/friends', function (req, res, next) {
 router.get('/users/friends', function (req, res, next) {
   //The session already has the user's info stored in each request object's user property.
   //We'll query the database with the username from that.
-  var username = req.user.username;
+  var username = req.user ? req.user.username : res.sendStatus(404);
 
   //This query returns all Friend Models where a friendship is defined in the friends table
   //with the current user. We send those all back in the response.

@@ -8,19 +8,21 @@
     var self = this;
     var socket = playerFactory.getSocket();
 
-		self.friends = [];
+    self.friends = [];
     self.onlineFriends = {};
+    self.addFriendError = false;
 
     setListeners();
 
     self.addFriend = function(friend) {
-      friendsFactory.addFriend(friend, function(friends) {
+      friendsFactory.addFriend(friend, function (friends, error) {
         updateFriends();
+        self.addFriendError = error ? true : false;
       });
-    }
+    };
 
     function updateFriends() {
-      friendsFactory.getFriends(function(friends) {
+      friendsFactory.getFriends(function (friends) {
         self.friends = friends;
         socket.emit('get online friends', friends);
       });
@@ -28,12 +30,12 @@
     }
 
     function setListeners() {
-      socket.on('send online friends', function(onlineFriends) {
+      socket.on('send online friends', function (onlineFriends) {
         self.onlineFriends = onlineFriends;
       });
       socket.on('friend online', function() {
         updateFriends();
-      })
+      });
     }
 
     // //This handles two asynchronous systems:

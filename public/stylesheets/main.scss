@@ -10,6 +10,7 @@ $accent: #03A9F4;
 $text-primary: #212121;
 $text-secondary: #727272;
 $divider: #B6B6B6;
+$warn: #FF5722;
 
 
 /*====================================
@@ -142,6 +143,13 @@ outline: none;
 /*=======================================
 =               FRIENDS                 =
 =======================================*/
+
+.add-friend-warning {
+	background-color: $warn;
+	width: 200px;
+	padding: 20px;
+	color: $text-icons;
+}
 
 .add-friend {
 	margin: 40px 0 0 40px;
