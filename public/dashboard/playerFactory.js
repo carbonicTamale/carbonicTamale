@@ -53,7 +53,7 @@
       email = user.email;
       profile = user.profile;
       instrument = 'piano';
-      volume = 0.5;
+      volume = 50;
     }
 
     function getName() {

@@ -77,8 +77,9 @@
     function playSound(key_num, key_vel, instrument) {
       var index = instrumentToIndex(instrument);
       var sound = samples[index][key_num];
-      if (Object.keys(sound).length === 0)
+      if (Object.keys(sound).length === 0) {
         return;
+      }
       
       var volume = key_vel / 127; // normalize to [0,1]
       volume *= (playerFactory.getVolume() / 100);
