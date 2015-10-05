@@ -56,7 +56,7 @@ module.exports = function(server, sessionMiddleware) {
     socket.on('get-online-friends', getFriends);
 
     function disconnect() {
-      delete openSockets[user];
+      delete openSockets[username];
       // jamDisconnect();
     }
 
@@ -65,7 +65,7 @@ module.exports = function(server, sessionMiddleware) {
       if(openSockets[invitee]) {
         var invitation = {
           roomName: roomName,
-          username: user
+          username: username
         };
         socket.broadcast.to(openSockets[invitee])
         .emit('receive jam invite', invitation);
