@@ -36,6 +36,7 @@
         console.log('room updated');
         $scope.$apply();
       });
+      socket.emit('jam connect', jamFactory.getJamRoom());
     }
 
     function registerKeyMap() {
