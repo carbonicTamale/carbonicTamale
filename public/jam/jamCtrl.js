@@ -101,6 +101,17 @@
       return soundFactory.getInstrumentIcon();
     }, function() {
       self.users[0].instrument = soundFactory.getInstrumentIcon();
-    })
+    });
+
+    $scope.$watch(function() {
+      return self.users;
+    }, function() {
+      for (var i=0; i<self.users.length; i++) {
+        if (self.users[i].username === playerFactory.getUsername()) {
+          socket.emit('change volume', self.users[i].volume);
+          break;
+        }
+      }
+    }, true);
   }
 })();
