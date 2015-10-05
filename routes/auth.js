@@ -26,11 +26,42 @@ module.exports = function(app) {
   ));
 
   passport.serializeUser(function(user, done) {
-    done(null, user);
+    var username = user.username;
+    var email = user.emails[0].value;
+    var name = user.displayName;
+    console.log('serializing');
+    new User({ username: username }).fetch()
+    .then(function (found) {
+      if(!found) {
+        console.log('not found');
+        Users.create({
+          name: name,
+          username: username,
+          email: email
+        }).then(function(newUser) {
+          done(null, newUser);
+        });
+      } else {
+        console.log('found');
+        console.log(found);
+        done(null, found.attributes.id);
+      }
+    });
   });
 
-  passport.deserializeUser(function(user, done) {
-    done(null, user);
+  passport.deserializeUser(function(id, done) {
+    new User({ id: id }).fetch()
+    .then(function (found) {
+      if(!found) {
+        console.log('not found');
+        throw "NOT RIGHT";
+      }
+      else {
+        // console.log('found');
+        // console.log(found);
+        done(null, found.attributes);
+      }
+    });
   });
 
   app.get('/auth/github',
@@ -44,23 +75,7 @@ module.exports = function(app) {
   app.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
-      var username = req.user.username;
-      var email = req.user.emails[0].value;
-      var name = req.user.displayName;
-      new User({ username: username }).fetch()
-      .then(function (found) {
-        if(!found) {
-          Users.create({
-            name: name,
-            username: username,
-            email: email
-          }).then(function(newUser) {
-            res.redirect('/');
-          });
-        } else {
-          res.redirect('/');
-        }
-      });
+      res.redirect('/');
   });
 };
 
