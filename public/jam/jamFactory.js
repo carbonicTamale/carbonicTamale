@@ -167,7 +167,7 @@
 					}
 				}
 			}
-			else if (this.name === 'USB Axiom 49') {
+			else if (this.name.indexOf('USB Axiom 49')) {
 				if (key_vel !== 0) {
 					keyDown(key_num, key_vel);
 				}
