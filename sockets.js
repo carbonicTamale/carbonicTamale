@@ -116,7 +116,7 @@ module.exports = function(server, sessionMiddleware) {
         }
       }
 
-      updateJamRoom();
+      updateJamRoom(false);
     }
 
     function changeVolume(newVolume) {
@@ -129,7 +129,7 @@ module.exports = function(server, sessionMiddleware) {
         }
       }
 
-      updateJamRoom();
+      updateJamRoom(false);
     }
 
     function getFriends(friends) {
@@ -143,11 +143,16 @@ module.exports = function(server, sessionMiddleware) {
     }
 
     // tell everyone to update their display
-    function updateJamRoom() {
+    function updateJamRoom(updateSelf) {
       var players = [];
+      updateSelf = updateSelf || true;
       console.log('jams[currentJam] =', jams[currentJam]);
 
       for (var i=0; i < jams[currentJam].length; i++) {
+        if (jams[currentJam][i].username === username) {
+          if (!updateSelf)
+            continue;
+        }
         players.push(jams[currentJam][i]);
       }
 
