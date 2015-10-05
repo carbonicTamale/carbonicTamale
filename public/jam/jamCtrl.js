@@ -80,24 +80,10 @@
       soundFactory.prevInstrument();
     };
 
-    // $scope.$watch(function() {
-    //   return soundFactory.getInstrumentIcon();
-    // }, function() {
-    //   self.users[0].instrument = soundFactory.getInstrumentIcon();
-    // });
-
-    $scope.$watch(function() {
-      return self.users;
-    }, function() {
-      for (var i=0; i<self.users.length; i++) {
-        if (self.users[i].username === playerFactory.getUsername()) {
-          if (self.users[i].volume === playerFactory.getVolume())
-            return;
-
-          playerFactory.setVolume(self.users[i].volume);
-          return;
-        }
-      }
-    }, true);
+    self.updateVolume = function(username, volume) {
+      if (username === playerFactory.getUsername())
+        playerFactory.setVolume(volume);
+    }
+    
   }
 })();
