@@ -32,6 +32,7 @@
         });
         console.log('player_names =', player_names);
         jamFactory.addKeyMaps(player_names);
+        self.keyMaps = jamFactory.getKeyMaps();
         self.users = players;
         console.log('room updated');
         console.log('self.users =', self.users);
@@ -85,11 +86,14 @@
       soundFactory.prevInstrument();
     };
 
-    self.updateVolume = function(username, volume, $index) {
+    self.updateVolume = function(username, volume) {
       if (username === playerFactory.getUsername())
         playerFactory.setVolume(volume);
 
-      console.log('$index =', $index);
+    }
+
+    self.disconnect = function() {
+      playerFactory.disconnect();
     }
     
   }
