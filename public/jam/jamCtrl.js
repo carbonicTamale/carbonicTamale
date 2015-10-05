@@ -11,14 +11,15 @@
     self.devices = [];
 
     self.key_maps = jamFactory.getKeyMaps();
+    console.log('self.key_maps =', self.key_maps);
 
     self.users = [
-      {
-        username: 'patrickstar',
-        name: 'Patrick Star',
-        instrument: 'piano',
-        volume: 50
-      }
+      // {
+      //   username: 'patrickstar',
+      //   name: 'Patrick Star',
+      //   instrument: 'piano',
+      //   volume: 50
+      // }
     ];
 
     connectDevices();

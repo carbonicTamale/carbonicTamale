@@ -22,6 +22,7 @@
 		var observerCallbacks = [];
 		var key_maps = {};
 		var username = playerFactory.getUsername();
+		console.log('username =', username);
 
 		setSockets();
 		fillKeyMap();
