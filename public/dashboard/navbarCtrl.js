@@ -7,7 +7,7 @@
   function navbarCtrl($state, $mdToast, soundFactory, jamFactory, playerFactory) {
     var self = this;
 
-    var socket = io();
+    var socket = playerFactory.getSocket();
 
     self.user = {
       name: 'Marcus Buffett',
@@ -34,6 +34,7 @@
 
     socket.on('receive jam invite', function(invitation) {
       console.log('received jam invite');
+      console.log('invitation.name =', invitation.name);
       $mdToast.show({
         templateUrl: 'dashboard/toast-invite.html',
         hideDelay: 0,
@@ -41,7 +42,7 @@
         controller: 'ToastCtrl',
         controllerAs: 'toast',
         locals: {
-          username: invitation.username,
+          name: invitation.name,
           roomName: invitation.roomName,
           socket: socket
         },
@@ -67,7 +68,7 @@
     self.inviteFriend = function(friend) {
       console.log('friend =', friend);
       var roomName = '' + Math.floor(Math.random() * 1000);
-      socket.emit('jam create', playerFactory.getPlayer());
+      socket.emit('jam create', roomName);
       socket.emit('send jam invite', friend, roomName);
       jamFactory.setJamState(true);
       jamFactory.setJamRoom(roomName);

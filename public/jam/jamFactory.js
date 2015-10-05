@@ -5,8 +5,6 @@
 	.factory('jamFactory', jamFactory);
 
 	function jamFactory(soundFactory, $document) {
-		var self = this;
-
 		var services = {
 			plug: plug,
 			plugAll: plugAll,
@@ -17,7 +15,8 @@
 			getJamRoom: getJamRoom,
 			setJamRoom: setJamRoom
 		};
-
+		
+		var self = this;
 		self.device = null;
 		var device_name = '';
 		var device_names = [];

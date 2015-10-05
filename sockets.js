@@ -30,19 +30,24 @@ module.exports = function(server, sessionMiddleware) {
       return;
     }
     var user = session.passport.user;
+    console.log('user =', user);
     var name = user.name;
+    console.log('name =', name);
     var username = user.username;
     var email = user.email;
 
     var player = {
       name: name,
+      username: username,
       instrument: 'piano',
       volume: 0.5
     };
 
     var currentJam = null;
     openSockets[username] = socket.id;
+    console.log('openSockets =', openSockets);
     console.log('A user has connected');
+    socket.emit('friend online');
 
     server.on('error', console.log.bind('error'));
     server.on('listening', console.log.bind('listening'));
@@ -53,7 +58,7 @@ module.exports = function(server, sessionMiddleware) {
     socket.on('jam connect', jamConnect);
     socket.on('jam create', jamCreate);
     socket.on('change instrument', changeInstrument);
-    socket.on('get-online-friends', getFriends);
+    socket.on('get online friends', getFriends);
 
     function disconnect() {
       delete openSockets[username];
@@ -64,20 +69,24 @@ module.exports = function(server, sessionMiddleware) {
       console.log('openSockets[invitee] = ', openSockets[invitee]);
       if(openSockets[invitee]) {
         var invitation = {
-          roomName: roomName,
-          username: username
+          name: name,
+          roomName: roomName
         };
         socket.broadcast.to(openSockets[invitee])
         .emit('receive jam invite', invitation);
       }
     }
 
-    function jamCreate() {
-      currentJam = Math.floor(Math.random()*10000);
+    function jamCreate(jamID) {
+      console.log('jam created at', jamID);
+      currentJam = jamID;
       jams[currentJam] = [player];
+
+      updateJamRoom();
     }
 
     function jamConnect(jamID) {
+      console.log('jam connected at', jamID);
       currentJam = jamID;
       jams[currentJam].push(player);
 
@@ -110,25 +119,29 @@ module.exports = function(server, sessionMiddleware) {
     }
 
     function getFriends(friends) {
-      console.log(friends);
-      var onlineFriends = [];
+      var onlineFriends = {};
       for(var i = 0; i < friends.length; i++) {
         var friend = friends[i].username;
-        if(openSockets[friend]) {
-          onlineFriends.push(friend);
-        }
+        onlineFriends[friend] = (!!openSockets[friend]);
       }
-      socket.emit('send-online-friends', onlineFriends);
+
+      socket.emit('send online friends', onlineFriends);
     }
 
     // tell everyone to update their display
-    function updateJamRoom(currentJam) {
-      var sockets = [];
+    function updateJamRoom() {
+      var players = [];
+      console.log('jams[currentJam] =', jams[currentJam]);
 
       for (var i=0; i<jams[currentJam].length; i++) {
-        sockets.push(jams[currentJam][i]);
+        players.push(jams[currentJam][i]);
       }
 
+      var sockets = players.map(function(p) {
+        return openSockets[p.username];
+      });
+
+      console.log('sockets =', sockets);
       socket.broadcast.to(sockets)
       .emit('update room', jams[currentJam]);
     }

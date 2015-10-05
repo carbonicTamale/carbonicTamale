@@ -12,12 +12,19 @@
       getEmail: getEmail,
       setInstrument: setInstrument,
       setVolume: setVolume,
-      getPlayer: getPlayer
+      getPlayer: getPlayer,
+      getSocket: getSocket
     };
+
+    var socket = io();
 
     var name, username, email, instrument, volume;
 
     return services;
+
+    function getSocket() {
+      return socket;
+    }
 
     function setUser(user) {
       name = user.name;
