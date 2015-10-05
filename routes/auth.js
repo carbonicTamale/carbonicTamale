@@ -44,24 +44,13 @@ module.exports = function(app) {
       } else {
         console.log('found');
         console.log(found);
-        done(null, found.attributes.id);
+        done(null, found.attributes);
       }
     });
   });
 
-  passport.deserializeUser(function(id, done) {
-    new User({ id: id }).fetch()
-    .then(function (found) {
-      if(!found) {
-        console.log('not found');
-        throw "NOT RIGHT";
-      }
-      else {
-        // console.log('found');
-        // console.log(found);
-        done(null, found.attributes);
-      }
-    });
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
   });
 
   app.get('/auth/github',
