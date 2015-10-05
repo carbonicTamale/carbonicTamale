@@ -34,6 +34,7 @@
       socket.on('update room', function(players) {
         self.users = players;
         console.log('room updated');
+        $scope.$apply();
       });
     }
 
