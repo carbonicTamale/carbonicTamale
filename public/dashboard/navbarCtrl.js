@@ -33,6 +33,7 @@
     ];
 
     socket.on('receive jam invite', function(invitation) {
+      console.log('received jam invite');
       $mdToast.show({
         templateUrl: 'dashboard/toast-invite.html',
         hideDelay: 0,
@@ -69,6 +70,7 @@
       socket.emit('jam create', playerFactory.getPlayer());
       socket.emit('send jam invite', friend, roomName);
       jamFactory.setJamState(true);
+      jamFactory.setJamRoom(roomName);
 
       $state.transitionTo('jam');
     };
