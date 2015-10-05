@@ -14,7 +14,6 @@
       jamFactory.setJamRoom(roomName);
 
       console.log('accepted jam invite');
-      socket.emit('jam connect', roomName);
       $mdToast.hide();
     }
     self.closeToast = function() {
