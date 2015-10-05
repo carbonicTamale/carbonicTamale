@@ -76,13 +76,19 @@ router.post('/users/profile', function(req, res, next) {
 
 router.get('/events', function (req, res, next) {
   var username = req.user.username;
-  new Friends().query(function(qb){
-    qb.orderBy('created_at','DESC'); 
-  }).fetch({
-
-  }).then(function(collection){
-    console.log(collection);
-  });
+  new User({ 'username': username })
+  .fetch({ withRelated: ['friends'] })
+  .then(function(friends) {
+    var events = [];
+    // for (var i = 0; i < friends.friends.length; i++) {
+      // events.push({
+        // friend: friends.friends[i],
+        // type: 'friend'
+      // });
+      // console.log('once');
+    // }
+    res.send(friends);
+  }); 
 });
 
 router.get('/jams', function (req, res, next) {
