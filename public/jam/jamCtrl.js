@@ -11,14 +11,15 @@
     self.devices = [];
 
     self.key_maps = jamFactory.getKeyMaps();
+    console.log('self.key_maps =', self.key_maps);
 
     self.users = [
-      {
-        username: 'patrickstar',
-        name: 'Patrick Star',
-        instrument: 'piano',
-        volume: 50
-      }
+      // {
+      //   username: 'patrickstar',
+      //   name: 'Patrick Star',
+      //   instrument: 'piano',
+      //   volume: 50
+      // }
     ];
 
     connectDevices();
@@ -32,6 +33,7 @@
         });
         console.log('player_names =', player_names);
         jamFactory.addKeyMaps(player_names);
+        self.keyMaps = jamFactory.getKeyMaps();
         self.users = players;
         console.log('room updated');
         console.log('self.users =', self.users);
@@ -85,11 +87,14 @@
       soundFactory.prevInstrument();
     };
 
-    self.updateVolume = function(username, volume, $index) {
+    self.updateVolume = function(username, volume) {
       if (username === playerFactory.getUsername())
         playerFactory.setVolume(volume);
 
-      console.log('$index =', $index);
+    }
+
+    self.disconnect = function() {
+      playerFactory.disconnect();
     }
     
   }
