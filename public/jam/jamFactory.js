@@ -6,89 +6,111 @@
 
 	function jamFactory(soundFactory, $document) {
 		var self = this;
-		self.device = null;
-		var device_name = '';
-		var device_names = [];
-		var socket = io('http://localhost:80');
-		var roomName = '2307';
-		var observerCallbacks = [];
-		var key_map = [];
-
-
-		socket.on(roomName + ' event', function(data) {
-			console.log('received data', data);
-			var key_num = data[0];
-			var key_vel = data[1];
-			var key_position = data[2];
-
-			if (key_position === 'down')
-				soundFactory.playSound(key_num, key_vel);
-			else
-				soundFactory.stopSound(key_num, key_vel);
-		});
-
-		fillKeyMap();
-
-
-		var keyboard_piano = {
-			65: '43',
-			79: '46',
-			69: '48',
-			85: '51',
-			73: '53',
-			68: '54',
-			72: '55',
-			84: '58',
-			78: '60',
-			83: '63',
-			189: '65'
-		};
-
-		var keyboard_down = {
-			65: false,
-			79: false,
-			69: false,
-			85: false,
-			73: false,
-			68: false,
-			72: false,
-			84: false,
-			78: false,
-			83: false,
-			189: false
-		};
-
-		$document.on('keydown', function(e) {
-			if (!keyboard_piano.hasOwnProperty(e.which))
-				return;
-
-			if (!keyboard_piano[e.which])
-				return;
-
-			keyDown(keyboard_piano[e.which], 0.5 * 127);
-			keyboard_down[e.which] = true;
-		});
-
-		$document.on('keyup', function(e) {
-			if (!keyboard_piano.hasOwnProperty(e.which))
-				return;
-
-			keyboard_down[e.which] = false;
-			keyUp(keyboard_piano[e.which], 0);
-		});
 
 		var services = {
 			plug: plug,
 			plugAll: plugAll,
 			getKeyMap: getKeyMap,
 			registerObserverCallback: registerObserverCallback,
-			setRoom: setRoom
-		}
+			setJamState: setJamState,
+			inJam: inJam,
+			getJamRoom: getJamRoom,
+			setJamRoom: setJamRoom
+		};
+
+		self.device = null;
+		var device_name = '';
+		var device_names = [];
+		var socket = io('http://localhost:80');
+		var observerCallbacks = [];
+		var key_map = [];
+		var username = '';
+		var in_jam = false;
+		var jam_room = '2307';
+
+		setSockets();
+		fillKeyMap();
+		setKeyboardBindings();
 
 		return services;
 
-		function setRoom(room) {
-			roomName = room;
+		function getJamRoom() {
+			return jam_room;
+		}
+
+		function setSockets() {
+			socket.on(jam_room + ' event', function(data) {
+				console.log('received data', data);
+				var key_num = data[0];
+				var key_vel = data[1];
+				var key_position = data[2];
+
+				if (data.down)
+					soundFactory.playSound(data.key_num, data.key_vel);
+				else
+					soundFactory.stopSound(data.key_num);
+			});
+		}
+
+		function setKeyboardBindings() {
+			var keyboard_piano = {
+				65: '43',
+				79: '46',
+				69: '48',
+				85: '51',
+				73: '53',
+				68: '54',
+				72: '55',
+				84: '58',
+				78: '60',
+				83: '63',
+				189: '65'
+			};
+
+			var keyboard_down = {
+				65: false,
+				79: false,
+				69: false,
+				85: false,
+				73: false,
+				68: false,
+				72: false,
+				84: false,
+				78: false,
+				83: false,
+				189: false
+			};
+
+			$document.on('keydown', function(e) {
+				if (!keyboard_piano.hasOwnProperty(e.which))
+					return;
+
+				if (keyboard_down[e.which])
+					return;
+
+				keyDown(keyboard_piano[e.which], 0.5 * 127);
+				keyboard_down[e.which] = true;
+			});
+
+			$document.on('keyup', function(e) {
+				if (!keyboard_piano.hasOwnProperty(e.which))
+					return;
+
+				keyboard_down[e.which] = false;
+				keyUp(keyboard_piano[e.which], 0);
+			});
+		}
+
+		function setJamRoom(roomNum) {
+			jam_room = roomNum;
+		}
+
+		function setJamState(state) {
+			in_jam = state;
+		}
+
+		function inJam() {
+			return in_jam;
 		}
 
 		function unplug() {
@@ -148,7 +170,13 @@
 		}
 
 		function keyDown(key_num, key_vel) {
-			socket.emit('note event', [key_num, key_vel, 'down'], roomName);
+			var data = {
+				username: username,
+				key_num: key_num,
+				key_vel: key_vel,
+				down: true
+			}
+			socket.emit('note event', data, roomName);
 			soundFactory.playSound(key_num, key_vel);
 			if (key_num-23 >= 0) key_map[key_num-23] = key_vel/4+1;
 			if (key_num-22 >= 0) key_map[key_num-22] = key_vel/2+1;
@@ -159,7 +187,13 @@
 		}
 
 		function keyUp(key_num, key_vel) {
-			socket.emit('note event', [key_num, key_vel, 'up'], roomName);
+			var data = {
+				username: username,
+				key_num: key_num,
+				key_vel: key_vel,
+				down: false
+			}
+			socket.emit('note event', data, roomName);
 			soundFactory.stopSound(key_num);
 			if (key_num-23 >= 0) key_map[key_num-23] = key_vel/4+1;
 			if (key_num-22 >= 0) key_map[key_num-22] = key_vel/2+1;
@@ -167,10 +201,6 @@
 			if (key_num-19 <= 97) key_map[key_num-19] = key_vel/4+1;
 			key_map[key_num-21] = key_vel+1;
 			notifyObservers();
-		}
-
-		function setSoundBar(key_num, key_vel) {
-
 		}
 
 		function registerObserverCallback(callback) {

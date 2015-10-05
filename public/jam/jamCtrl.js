@@ -6,6 +6,8 @@
 
   function jamCtrl($scope, Devices, jamFactory, soundFactory) {
     var self = this;
+    var socket = io();
+
     self.devices = [];
     self.volumeSlider = {
       floor: 0,
@@ -18,62 +20,56 @@
     self.users = [
       {
         name: 'Chris Yung',
-        username: 'cyung',
         instrument: 'piano',
-      },
-      {
-        name: 'Blaine Killen',
-        username: 'bkillenit',
-        instrument: 'drums',
-      },
-      {
-        name: 'Matthew Brooks',
-        username: 'mbrooks',
-        instrument: 'guitar',
-      },
-      {
-        name: 'Marcus Buffett',
-        username: 'mbuffett',
-        instrument: 'bassguitar',
-      },
-      {
-        name: 'Edgar Pabon',
-        username: 'edgar',
-        instrument: 'vocals',
+        volume: 0.5
       }
     ];
 
+    connectDevices();
+    setSockets();
+    registerKeyMap();
     self.users[0].instrument = soundFactory.getInstrumentIcon();
 
-    var updateKeyMap = function() {
-      self.key_map = jamFactory.getKeyMap();
-      $scope.$apply();
-    };
-
-    jamFactory.registerObserverCallback(updateKeyMap);
-
-    Devices
-      .connect()
-      .then(function(access) {
-        if (access.inputs && access.inputs.size > 0) {
-          var inputs = access.inputs.values();
-          var input = null;
-
-          // iterate through detected devices
-          for (input = inputs.next(); input && !input.done; input = inputs.next()) {
-          	self.devices.push(input.value);
-          }
-
-          // attach listeners to all plugged in MIDI devices
-          jamFactory.plugAll(self.devices);
-        }
-        else {
-        	console.log('No devices detected!');
-        }
-      })
-      .catch(function(e) {
-      	console.log(e);
+    function setSockets() {
+      socket.on('update room', function(players) {
+        self.users = players;
+        console.log('room updated');
       });
+    }
+
+    function registerKeyMap() {
+      var updateKeyMap = function() {
+        self.key_map = jamFactory.getKeyMap();
+        $scope.$apply();
+      };
+
+      jamFactory.registerObserverCallback(updateKeyMap);
+    }
+
+    function connectDevices() {
+      Devices
+        .connect()
+        .then(function(access) {
+          if (access.inputs && access.inputs.size > 0) {
+            var inputs = access.inputs.values();
+            var input = null;
+
+            // iterate through detected devices
+            for (input = inputs.next(); input && !input.done; input = inputs.next()) {
+            	self.devices.push(input.value);
+            }
+
+            // attach listeners to all plugged in MIDI devices
+            jamFactory.plugAll(self.devices);
+          }
+          else {
+          	console.log('No devices detected!');
+          }
+        })
+        .catch(function(e) {
+        	console.log(e);
+        });
+    }
 
 
     self.nextInstrument = function() {
