@@ -1,17 +1,15 @@
 <md-content layout="row" ng-controller="FriendsCtrl as friends" layout-fill flex flex-wrap>
   <div layout="column">
-    <md-form name="addFriendForm" ng-submit="friends.addFriend(friends.newFriend)" class="add-friend" flex layout="column" layout-align="center center" novalidate>
-      <autocomplete data="friends.allUsers" on-type="updateMovies">
+    <form name="addFriendForm" ng-submit="friends.addFriend(friends.newFriend)" class="add-friend" flex layout="column" layout-align="center center" novalidate>
         <md-input-container>
           <label>username</label>
           <input name="newFriend" ng-model="friends.newFriend" required>
         </md-input-container>
-      </autocomplete>
       <md-button>add friend</md-button>
       <md-whiteframe class="add-friend-warning md-whiteframe-10dp" ng-show="friends.addFriendError">
       This user doesn't exist!
       </md-whiteframe> 
-    </md-form>
+    </form>
     <div class="friends-panel" ng-repeat="friend in friends.friends">
       <md-whiteframe class="friend-container md-whiteframe-10dp" flex layout="column" layout-align="center start">
         <div class="friend-name">{{friend.name}}</div>
