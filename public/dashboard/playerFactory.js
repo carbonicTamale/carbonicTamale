@@ -10,6 +10,8 @@
       getName: getName,
       getUsername: getUsername,
       getEmail: getEmail,
+      getProfile: getProfile,
+      setProfile: setProfile,
       setInstrument: setInstrument,
       setVolume: setVolume,
       getPlayer: getPlayer,
@@ -18,7 +20,7 @@
 
     var socket = io();
 
-    var name, username, email, instrument, volume;
+    var name, username, email, instrument, volume, profile;
 
     return services;
 
@@ -26,10 +28,19 @@
       return socket;
     }
 
+    function getProfile() {
+      return profile;
+    }
+    function setProfile(p) {
+      console.log('setting profile');
+      profile = p;
+    }
+
     function setUser(user) {
       name = user.name;
       username = user.username;
       email = user.email;
+      profile = user.profile;
       instrument = 'piano';
       volume = 0.5;
     }

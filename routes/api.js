@@ -62,6 +62,17 @@ router.get('/users/friends', function (req, res, next) {
   }); 
 });
 
+router.post('/users/profile', function(req, res, next) {
+  var username = req.user.username;
+  new User({username : username})
+  .fetch()
+  .then(function(found) {
+    found.set('profile', req.body.profile);
+    found.save();
+    res.end();
+  });
+});
+
 router.get('/events', function (req, res, next) {
   var username = req.user.username;
   new Friends().query(function(qb){
