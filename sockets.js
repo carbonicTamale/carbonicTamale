@@ -133,7 +133,7 @@ module.exports = function(server, sessionMiddleware) {
       var players = [];
       console.log('jams[currentJam] =', jams[currentJam]);
 
-      for (var i=0; i<jams[currentJam].length; i++) {
+      for (var i=0; i < jams[currentJam].length; i++) {
         players.push(jams[currentJam][i]);
       }
 
@@ -142,8 +142,11 @@ module.exports = function(server, sessionMiddleware) {
       });
 
       console.log('sockets =', sockets);
-      socket.broadcast.to(sockets)
-      .emit('update room', jams[currentJam]);
+      for (var i = 0; i < sockets.length; i++) {
+        socket.broadcast.to(sockets[i])
+        .emit('update room', jams[currentJam]);
+      }
+      socket.emit('update room', jams[currentJam]);
     }
 
   });
