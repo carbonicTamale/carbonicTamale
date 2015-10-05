@@ -6,7 +6,7 @@
 
   function jamCtrl($scope, Devices, jamFactory, soundFactory) {
     var self = this;
-    var socket = io();
+    var socket = playerFactory.getSocket();
 
     self.devices = [];
     self.volumeSlider = {
@@ -19,16 +19,25 @@
 
     self.users = [
       {
+        username: 'patrickstar',
         name: 'Patrick Star',
         instrument: 'piano',
         volume: 0.5
       }
     ];
 
+    checkAlone();
     connectDevices();
     setSockets();
     registerKeyMap();
-    self.users[0].instrument = soundFactory.getInstrumentIcon();
+
+    function checkAlone() {
+      if (jamFactory.inJam())
+        return;
+
+      jamFactory.setJamState(true);
+      jamFactory.setJamRoom(Math.floor(Math.random()*10000));
+    }
 
     function setSockets() {
       socket.on('update room', function(players) {

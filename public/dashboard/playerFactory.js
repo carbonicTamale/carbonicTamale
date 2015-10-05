@@ -56,6 +56,7 @@
 
     function getPlayer() {
       return {
+        username: username,
         name: name,
         instrument: instrument,
         volume: volume
