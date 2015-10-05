@@ -36,7 +36,11 @@ router.post('/users/friends', function (req, res, next) {
     Friend.forge({ 'user_id': userID, 'friend_id': friendID })
     .save()
     .then(function (friendship) {
-      res.send('friendship saved');
+      Friend.forge({'user_id': friendID, 'friend_id': userID})
+      .save()
+      .then(function (friendship) {
+        res.send('friendship saved');
+      });
     });
 
   });
@@ -56,19 +60,6 @@ router.get('/users/friends', function (req, res, next) {
   .then(function(friends) {
     res.send(friends);
   }); 
-});
-
-router.post('/users/profile', function (req, res, next) {
-  var username = req.user.username;
-  var profile  = req.body.profile;
-
-  new User({ username: username }).fetch()
-  .then(function (found) {
-    console.log('found');
-    console.log(found);
-    found.set('profile', profile);
-    found.save();
-  });
 });
 
 router.get('/events', function (req, res, next) {
