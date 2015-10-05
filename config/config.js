@@ -13,9 +13,9 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
 else {
   console.log("Running in development mode");
   port = 3000;
-  GITHUB_CLIENT_ID = "c9f79f6f0da28cfe0d5e";
-  GITHUB_CLIENT_SECRET = "f9c1f12d3029fc8f23f5e851a83ec660b5318066";
-  GITHUB_CALLBACK = "http://127.0.0.1:3000/auth/github/callback";
+  GITHUB_CLIENT_ID = "d0b04d2cb29e8b37e9e2";
+  GITHUB_CLIENT_SECRET = "bd67fd2c36a65060716d37373303cb8b02651fd9";
+  GITHUB_CALLBACK = "http://dvorakop.local:3000/auth/github/callback";
 }
 
 module.exports = {

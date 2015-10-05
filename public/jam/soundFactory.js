@@ -51,11 +51,11 @@
         $timeout(function() {
           console.log('populating sound files');
           populateInstrument('piano', 21, 108, sounds_piano);
-          populateInstrument('bass_classic', 36, 97, sounds_bassguitar);
-          populateInstrument('guitar_electric', 36, 80, sounds_electricguitar);
-          populateInstrument('drums_rock', 36, 57, sounds_drums);
-          populateInstrument('tenorsax', 36, 85, sounds_tenorsax);
-          populateInstrument('trombone', 36, 78, sounds_trombone);
+          // populateInstrument('bass_classic', 36, 97, sounds_bassguitar);
+          // populateInstrument('guitar_electric', 36, 80, sounds_electricguitar);
+          // populateInstrument('drums_rock', 36, 57, sounds_drums);
+          // populateInstrument('tenorsax', 36, 85, sounds_tenorsax);
+          // populateInstrument('trombone', 36, 78, sounds_trombone);
           resolve();
         });
       });
