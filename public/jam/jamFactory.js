@@ -138,6 +138,7 @@
 		function plugAll(devices) {
 			for (var i=0; i<devices.length; i++) {
 				devices[i].onmidimessage = onmidimessage;
+				console.log('device name =', devices[i].name);
 			}
 		}
 
@@ -167,7 +168,7 @@
 					}
 				}
 			}
-			else if (this.name.indexOf('USB Axiom 49')) {
+			else if (this.name.match(/Axiom/)) {
 				if (key_vel !== 0) {
 					keyDown(key_num, key_vel);
 				}
