@@ -26,8 +26,9 @@
       .then(function(data) {
         callback();
       }, function(err) {
+        callback(null, true);
         console.log('error adding friend');
-      })
+      });
     }
 
     function getFriends(callback) {
@@ -37,7 +38,7 @@
         callback(friends);
       }, function(err) {
         console.log('error retrieving friends');
-      })
+      });
     }
 
     function formatFriends(friends) {
@@ -47,7 +48,7 @@
           name: friend.name,
           email: friend.email
         };
-      })
+      });
     }
 
 
