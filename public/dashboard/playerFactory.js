@@ -83,6 +83,7 @@
 
     function setVolume(newVolume) {
       volume = newVolume;
+      console.log('setting volume');
       socket.emit('change volume', volume);
     }
 
