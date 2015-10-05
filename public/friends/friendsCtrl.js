@@ -5,15 +5,25 @@
 	.controller('FriendsCtrl', friendsCtrl);
 
 	function friendsCtrl ($scope, friendsFactory, playerFactory) {
+
     var self = this;
     var socket = playerFactory.getSocket();
 
     self.friends = [];
     self.onlineFriends = {};
     self.addFriendError = false;
+    self.allUsers = [];
 
-    setListeners();
 
+    //Fetch all users in the database in order to use in the autocomplete for the add friend form.
+    function getAllUsers () {
+      friendsFactory.getAllUsers(function (users, error) {
+        self.allUsers = users;
+      });
+    }
+
+    //Write new friendship to the database, if there is an error on the server side,
+    //then display the warning message to the user.
     self.addFriend = function(friend) {
       friendsFactory.addFriend(friend, function (friends, error) {
         updateFriends();
@@ -21,6 +31,8 @@
       });
     };
 
+    //Display most current list of friends
+    //and then emit socket event to get list of who is online.
     function updateFriends() {
       friendsFactory.getFriends(function (friends) {
         self.friends = friends;
@@ -38,44 +50,13 @@
       });
     }
 
-    // //This handles two asynchronous systems:
-    // //1.) Retrieve the user's list of friends from the database
-    // //2.) Use that list of friends to find those who are online
-    // self.getAndShowFriends = function () {
-    //   friendsFactory.getFriends()
-    //   .then(function (friends) {
-    //     self.friends = friends;
-    //     self.getOnlineFriends(friends);
-    //   })
-    //   .catch(function (err) {
-    //     console.log('getAndShowFriends error: ', err);
-    //   });
-    // };
+    function initialize () {
+      getAllUsers();
+      updateFriends();
+      setListeners();
+    }
 
-    // self.getOnlineFriends = function (friends) {
-    //   friendsFactory.getOnlineFriends(friends)
-    //   .then(function (onlineFriends) {
-    //     self.onlineFriends = onlineFriends;
-    //   })
-    //   .catch(function (err) {
-    //     console.log('getOnlineFriends error: ', err);
-    //   });
-    // };
+    initialize();
 
-    // self.initialize = function () {
-    //   self.getAndShowFriends();
-    // };
-    // self.addFriend = function (user) {
-    //   friendsFactory.addFriend(user, self.newFriend)
-    //   .then(function (data) {
-    //     self.getAndShowFriends();
-    //     console.log(data);
-    //   })
-    //   .catch(function (err) {
-    //     console.log('addFriend error: ', err);
-    //   });
-    // };
-
-    // self.initialize();
 	}
 })();

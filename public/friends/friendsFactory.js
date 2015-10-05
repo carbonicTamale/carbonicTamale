@@ -5,9 +5,11 @@
   .factory('friendsFactory', friendsFactory);
 
   function friendsFactory ($http, $q, playerFactory) {
+
     var services = {
       getFriends: getFriends,
-      addFriend: addFriend
+      addFriend: addFriend,
+      getAllUsers: getAllUsers
     };
 
     var socket = playerFactory.getSocket();
@@ -15,6 +17,13 @@
     var onlineFriends = {};
 
     return services;
+
+    function getAllUsers (callback) {
+      $http.get('/api/users')
+      .then(function(res) {
+        callback(res.data);
+      });
+    }
 
     function addFriend(friend, callback) {
       var data = {
