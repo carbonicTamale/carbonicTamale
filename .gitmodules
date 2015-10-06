@@ -1,0 +1,3 @@
+[submodule "socketServer"]
+	path = socketServer
+	url = https://github.com/carbonicTamale/socketServer.git
