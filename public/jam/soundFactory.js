@@ -46,11 +46,11 @@
         $timeout(function() {
           console.log('populating sound files');
           loadSamples('piano', 21, 108, sounds_piano);
-          // loadSamples('bass_classic', 36, 97, sounds_bassguitar);
-          // loadSamples('guitar_electric', 36, 80, sounds_electricguitar);
-          // loadSamples('drums_rock', 36, 57, sounds_drums);
-          // loadSamples('tenorsax', 36, 85, sounds_tenorsax);
-          // loadSamples('trombone', 36, 78, sounds_trombone);
+          loadSamples('bass_classic', 36, 97, sounds_bassguitar);
+          loadSamples('guitar_electric', 36, 80, sounds_electricguitar);
+          loadSamples('drums_rock', 36, 57, sounds_drums);
+          loadSamples('tenorsax', 36, 85, sounds_tenorsax);
+          loadSamples('trombone', 36, 78, sounds_trombone);
           resolve();
         });
       });
