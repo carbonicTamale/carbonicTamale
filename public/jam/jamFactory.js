@@ -12,6 +12,7 @@
 			getKeyMaps: getKeyMaps,
 			addKeyMaps: addKeyMaps,
 			registerObserverCallback: registerObserverCallback,
+			setKeyboardBindings: setKeyboardBindings
 		};
 		
 		var self = this;
@@ -71,51 +72,72 @@
 		}
 
 		function setKeyboardBindings() {
-			var keyboard_piano = {
-				65: '43',
-				79: '46',
-				69: '48',
-				85: '51',
-				73: '53',
-				68: '54',
-				72: '55',
-				84: '58',
-				78: '60',
-				83: '63',
-				189: '65'
-			};
+			var keyboard_bindings, keyboard_down;
+			var instrument = playerFactory.getInstrument();
+			if (instrument === 'drums') {
+				keyboard_bindings = {
+					16: '36',
+					65: '43',
+					81: '52',
+					83: '39',
+					87: '50'
+				};
 
-			var keyboard_down = {
-				65: false,
-				79: false,
-				69: false,
-				85: false,
-				73: false,
-				68: false,
-				72: false,
-				84: false,
-				78: false,
-				83: false,
-				189: false
-			};
+			keyboard_down = {
+					16: false,
+					65: false,
+					81: false,
+					83: false,
+					87: false
+				};
+			}
+			else {
+				keyboard_bindings = {
+					65: '43',
+					83: '46',
+					68: '48',
+					70: '51',
+					71: '53',
+					72: '54',
+					74: '55',
+					75: '58',
+					76: '60',
+					186: '63',
+					222: '65'
+				};
+
+				keyboard_down = {
+					65: false,
+					83: false,
+					68: false,
+					70: false,
+					71: false,
+					72: false,
+					74: false,
+					75: false,
+					76: false,
+					186: false,
+					222: false
+				};
+			}
 
 			$document.on('keydown', function(e) {
-				if (!keyboard_piano.hasOwnProperty(e.which))
+				if (!keyboard_bindings.hasOwnProperty(e.which))
 					return;
 
 				if (keyboard_down[e.which])
 					return;
 
-				keyDown(keyboard_piano[e.which], 0.5 * 127);
+				keyDown(keyboard_bindings[e.which], 0.5 * 127);
 				keyboard_down[e.which] = true;
 			});
 
 			$document.on('keyup', function(e) {
-				if (!keyboard_piano.hasOwnProperty(e.which))
+				if (!keyboard_bindings.hasOwnProperty(e.which))
 					return;
 
 				keyboard_down[e.which] = false;
-				keyUp(keyboard_piano[e.which], 0);
+				keyUp(keyboard_bindings[e.which], 0);
 			});
 		}
 

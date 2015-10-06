@@ -68,6 +68,7 @@
     self.inviteFriend = function(friend) {
       console.log('friend =', friend);
       if (!playerFactory.inJam()) {
+        console.log('setting up initial room');
         var roomName = '' + Math.floor(Math.random() * 1000);
         playerFactory.setJamState('host');
         playerFactory.setJamRoom(roomName);

@@ -81,10 +81,12 @@
 
     self.nextInstrument = function() {
       soundFactory.nextInstrument();
+      jamFactory.setKeyboardBindings();
     };
 
     self.prevInstrument = function() {
       soundFactory.prevInstrument();
+      jamFactory.setKeyboardBindings();
     };
 
     self.updateVolume = function(username, volume) {
