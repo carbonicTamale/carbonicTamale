@@ -69,6 +69,7 @@ module.exports = function(server, sessionMiddleware) {
     socket.on('change instrument', changeInstrument);
     socket.on('change volume', changeVolume);
     socket.on('get online friends', getFriends);
+    socket.on('update all', updateJamRoom);
 
     function disconnect() {
       delete openSockets[username];
