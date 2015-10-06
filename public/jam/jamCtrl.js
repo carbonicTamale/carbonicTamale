@@ -35,7 +35,7 @@
         jamFactory.addKeyMaps(player_names);
         self.keyMaps = jamFactory.getKeyMaps();
         self.users = players;
-        console.log('room updated');
+        console.log('room updated to', playerFactory.getJamRoom());
         console.log('self.users =', self.users);
         $scope.$apply();
       });

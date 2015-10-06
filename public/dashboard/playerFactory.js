@@ -83,7 +83,6 @@
 
     function setVolume(newVolume) {
       volume = newVolume;
-      console.log('setting volume');
       socket.emit('change volume', volume);
     }
 
@@ -110,7 +109,7 @@
     }
 
     function inJam() {
-      return jamState;
+      return inJam;
     }
 
     function connectToRoom() {
@@ -119,10 +118,10 @@
         inJam = true;
       }
 
-      if (jamState === 'multiplayer')
-        return;
-
-      if (jamState === 'solo') {
+      if (jamState === 'multiplayer') {
+        socket.emit('update all');
+      }
+      else if (jamState === 'solo') {
         socket.emit('jam create', jamRoom);
       }
       else if (jamState === 'join in progress') {

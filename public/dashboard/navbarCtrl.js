@@ -67,10 +67,12 @@
 
     self.inviteFriend = function(friend) {
       console.log('friend =', friend);
-      var roomName = '' + Math.floor(Math.random() * 1000);
-      socket.emit('send jam invite', friend, roomName);
-      playerFactory.setJamState('host');
-      playerFactory.setJamRoom(roomName);
+      if (!playerFactory.inJam()) {
+        var roomName = '' + Math.floor(Math.random() * 1000);
+        playerFactory.setJamState('host');
+        playerFactory.setJamRoom(roomName);
+      }
+      socket.emit('send jam invite', friend, playerFactory.getJamRoom());
 
       $state.transitionTo('jam');
     };
